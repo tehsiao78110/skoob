@@ -1,0 +1,135 @@
+.toTop-arrow {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 33%;
+    opacity: 0.6;
+    background: #000;
+    cursor: pointer;
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    display: none;
+}
+
+.toTop-arrow {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 33%;
+    opacity: 0.6;
+    background: #000;
+    cursor: pointer;
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    display: none;
+}
+
+.toTop-arrow::before,
+.toTop-arrow::after {
+    width: 18px;
+    height: 5px;
+    border-radius: 3px;
+    background: #f90;
+    position: absolute;
+    content: "";
+}
+
+.toTop-arrow::before {
+    transform: rotate(-45deg) translate(0, -50%);
+    left: 0.5rem;
+}
+
+.toTop-arrow::after {
+    transform: rotate(45deg) translate(0, -50%);
+    right: 0.5rem;
+}
+
+.toTop-arrow:focus {
+    outline: none;
+}
+
+/* main區塊的CSS */
+.container11 {
+    margin: 50px;
+}
+
+/* 表格的CSS */
+main {
+    margin-top: 50px;
+}
+
+.table {
+    top: 20px;
+    bottom: 500px;
+}
+
+.myFav_thead_tr {
+    /* display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-left: 0; */
+    text-align: center;
+}
+
+.myFav_thead_tr th {
+    font-weight: bold;
+    color: white;
+    /* 設定排版 */
+    /* display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0; */
+}
+
+.body {
+    position: static;
+}
+
+.fav_btn {
+    border: 0;
+    padding: 0px;
+    background-color: white;
+}
+
+/* 設定商品 */
+.myFav_product_wrap {
+    display: flex;
+    flex-direction: row;
+}
+
+/* 我的最愛 - 標題列 */
+.myFav_area_header li {
+    border: 1px solid #d8d8d8;
+    background-color: #b8292f;
+    font-weight: bold;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.myFav_area ul li {
+    list-style-type: none;
+    text-align: center;
+}
+
+.myFav_product_title_wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: start;
+}
+
+.myFav_area_content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

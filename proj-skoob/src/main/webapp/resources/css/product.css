@@ -1,0 +1,225 @@
+.content_pcoll {
+	padding: 15px 0 25px 0;
+
+}
+
+.title_style1b {
+	line-height: 35px;
+	font-size: 2rem;
+	color: #c54038;
+}
+
+.fakeimg {
+	height: 200px;
+	background: #aaa;
+}
+
+.more {
+	display: none;
+}
+
+.title_pcoll {
+
+	background: url(https://cdn.kingstone.com.tw/images/icon_ar_up1.png) 97% 50% no-repeat #f5f5f5;
+	background-size: 18px 11px;
+}
+
+.toTop-arrow {
+	width: 2.5rem;
+	height: 2.5rem;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	border-radius: 33%;
+	opacity: 0.6;
+	background: #000;
+	cursor: pointer;
+	position: fixed;
+	right: 1rem;
+	bottom: 1rem;
+	display: none;
+}
+
+.toTop-arrow::before,
+.toTop-arrow::after {
+	width: 18px;
+	height: 5px;
+	border-radius: 3px;
+	background: #f90;
+	position: absolute;
+	content: "";
+}
+
+.toTop-arrow::before {
+	transform: rotate(-45deg) translate(0, -50%);
+	left: 0.5rem;
+}
+
+.toTop-arrow::after {
+	transform: rotate(45deg) translate(0, -50%);
+	right: 0.5rem;
+}
+
+.toTop-arrow:focus {
+	outline: none;
+}
+
+.fav {
+	color: #ccc;
+}
+
+.like {
+	color: #f00
+}
+
+footer {
+	display: flex;
+	justify-content: center;
+	padding-top: 30px;
+	bottom: 0;
+	background-color: #31384A;
+	opacity: 1;
+	height: 400px;
+	margin-top: 50px;
+}
+
+.footer_main {
+	margin: 0;
+	/* margin-left: 40px; */
+}
+
+.footer_main a {
+	text-decoration: none;
+	color: #CCCCCC;
+}
+
+.footer_item>ul {
+	padding-left: 0;
+}
+
+.footer_item>ul>li {
+	list-style: none;
+}
+
+.footer_item>h4 {
+	/* padding-left: 73px; */
+	color: #95C8CD;
+}
+
+.footer_item>ul>li:hover {
+	text-decoration: none;
+}
+
+
+/*圖片區*/
+* {
+	box-sizing: border-box
+}
+
+/* Slideshow container */
+.slideshow-container {
+	max-width: 1000px;
+	position: relative;
+	margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+	display: none;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+	cursor: pointer;
+	position: absolute;
+	top: 50%;
+	width: auto;
+	margin-top: -22px;
+	padding: 16px;
+	color: white;
+	font-weight: bold;
+	font-size: 18px;
+	transition: 0.6s ease;
+	border-radius: 0 3px 3px 0;
+	user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+	right: 0;
+	border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+/*.prev:hover, .next:hover {*/
+.prev,
+.next {
+	background-color: rgba(0, 0, 1, 0.8);
+	background-color: gray;
+
+}
+
+.prevb .nextb {
+	background-color: var(--black);
+	opacity: .2;
+}
+
+/* Caption text */
+.text {
+	color: #f2f2f2;
+	font-size: 15px;
+	padding: 8px 12px;
+	position: absolute;
+	bottom: 8px;
+	width: 100%;
+	text-align: center;
+}
+
+
+
+/* The dots/bullets/indicators */
+.dot {
+	cursor: pointer;
+	height: 15px;
+	width: 15px;
+	margin: 0 2px;
+	background-color: #bbb;
+	border-radius: 50%;
+	display: inline-block;
+	transition: background-color 0.6s ease;
+}
+
+.active,
+.dot:hover {
+	background-color: #717171;
+}
+
+/* Fading animation */
+.ifade {
+	-webkit-animation-name: fade;
+	-webkit-animation-duration: 1.5s;
+	animation-name: fade;
+	animation-duration: 1.5s;
+
+}
+
+@-webkit-keyframes fade {
+	from {
+		opacity: .4
+	}
+
+	to {
+		opacity: 1
+	}
+}
+
+@keyframes fade {
+	from {
+		opacity: .4
+	}
+
+	to {
+		opacity: 1
+	}
+}

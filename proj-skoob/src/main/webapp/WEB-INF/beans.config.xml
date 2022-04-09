@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<context:annotation-config />
+	<context:component-scan base-package="model"></context:component-scan>
+
+	<tx:annotation-driven />
+	<bean id="transactionManager"
+		  class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<constructor-arg ref="sessionFactory"></constructor-arg>
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
+		destroy-method="destroy">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="annotatedClasses">
+			<array>
+				<value>model.bean.AuthorBean</value>
+				<value>model.bean.CartBean</value>
+				<value>model.bean.MemberBean</value>
+				<value>model.bean.MyFavBean</value>
+				<value>model.bean.OrderBean</value>
+				<value>model.bean.OrderitemBean</value>
+				<value>model.bean.ProductBean</value>
+			</array>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<!-- <prop key="hibernate.hbm2ddl.auto">validate</prop> -->
+				<!-- <prop key="hibernate.current_session_context_class">thread</prop> -->
+			</props>
+		</property>
+	</bean>
+
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+		<constructor-arg>
+			<bean id="config" class="com.zaxxer.hikari.HikariConfig">
+				<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+				<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/skoob?"></property>
+				<property name="username" value="root"></property>
+				<property name="password" value="root"></property>
+				<property name="dataSourceProperties">
+					<props>
+						<prop key="cachePrepStmts">true</prop>
+						<prop key="prepStmtCacheSize">250</prop>
+						<prop key="prepStmtCacheSqlLimit">2048</prop>
+					</props>
+				</property>
+			</bean>
+		</constructor-arg>
+	</bean>
+
+</beans>

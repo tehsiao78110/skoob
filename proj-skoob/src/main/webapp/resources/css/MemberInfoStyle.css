@@ -1,0 +1,160 @@
+@charset "UTF-8";
+*{
+	justify-content: center;
+}
+.Info{
+	justify-content: center;
+	background:#f1f1f1;
+	width: 1000px;
+	height: 700px;
+	margin-top:100px;
+	padding: 40px 40px;
+	border-radius: 10px;
+	position: relative;
+}
+.Info h3{
+	color: #dc3545;
+	width:50%;
+	position:relative;
+	top:20px;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	font-size: 32px;
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+.error{
+	color: red;
+	position: relative;	
+	left:10%;
+	
+	
+	
+}
+.assy{
+	position: relative; 
+	width: 220px;
+	top:90%;
+	
+}
+.Check{
+	font-size: 20px;
+	position:relative;
+	left:180px;
+	align-content:center;		
+	display: block;
+	width: 35%;
+	height: 50px;
+	border:none;
+	background:linear-gradient(120deg,#dc3545,#dc7235,#dc3545); 
+	background-size: 200%;
+	color:#fff;
+	outline: none;
+	cursor:pointer;
+	transition:0.5s;	
+}
+.Checkbtn:hover{
+	background-position: right;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  padding-top: 30px;
+  top: 0;
+  background-color: #31384A;
+  opacity: 1;
+  height: 400px;
+}
+
+.footer_main {
+  margin: 0;
+  /* margin-left: 40px; */
+}
+
+.footer_main a {
+  text-decoration: none;
+  color: #CCCCCC;
+}
+
+.footer_item > ul {
+  padding-left: 0;
+}
+
+.footer_item > ul > li{
+  list-style: none;
+}
+
+.footer_item > h4 {
+  /* padding-left: 73px; */
+  color: #95C8CD;
+}
+
+.footer_item > ul > li:hover {
+  text-decoration: none;
+}
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fdd000;
+  height: 70px;
+}
+
+.header_main {
+  display: flex;
+  flex-direction: row;
+}
+
+.header_main > div {
+  display: flex;
+  align-items: center;
+}
+
+.header_form_wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.header_form_content {
+  display: flex;
+  flex-direction: row;
+}
+
+.header_input_text {
+  width: 750px;
+  height: 39px;
+  size: 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.header_btn_search {
+  color: white;
+  width: 45px;
+  border: 1px rgb(145, 144, 144) solid;
+  background-color: #694a3a;
+}
+
+.header_btn_login {
+  background-color: #fdd000;
+  color: #694a3a;
+  border: 1px #694a3a solid;
+  margin-right: 15px;
+}
+
+.header_btn_login:hover {
+  background-color: #694a3a;
+  color: white;
+}
+
+.header_btn_cart {
+  color: #694a3a;
+}
+
+.header_operation_wrap {
+  display: flex;
+  justify-content: flex-end;
+}
+

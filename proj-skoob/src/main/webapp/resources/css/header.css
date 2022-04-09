@@ -1,0 +1,145 @@
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fdd000;
+  height: 70px;
+}
+
+/* 標題設定 */
+.heander_index_title {
+  color: #694a3a;
+}
+
+/* .heander_index_title > h1{ */
+/*   font-family: Georgia, "Times New Roman", Times, serif; */
+/*   font-style: oblique; */
+/*   font-size: 2.8rem !important; */
+/* } */
+.Skoob{
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-style: oblique;
+  font-size: 2.8rem !important;		
+}
+/*會員圖標設定 */
+.heander_index_title:link {
+  text-decoration:none;
+}
+
+.heander_index_title:hover {
+  color: #694a3a;
+}
+
+.header_main {
+  display: flex;
+  flex-direction: row;
+}
+
+.header_main > div {
+  display: flex;
+  align-items: center;
+}
+
+.header_form_wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.header_form_content {
+  display: flex;
+  flex-direction: row;
+}
+
+.header_input_text {
+  width: 750px;
+  height: 39px;
+  size: 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.header_btn_search {
+  color: white;
+  width: 45px;
+  border: 1px rgb(145, 144, 144) solid;
+  background-color: #694a3a;
+}
+
+.header_btn_login {
+  background-color: #fdd000;
+  color: #694a3a;
+  border: 1px #694a3a solid;
+  margin-right: 15px;
+  /* height: 16px; */
+}
+
+.header_btn_login:hover {
+  background-color: #694a3a;
+  color: white;
+}
+
+.header_btn_cart_wrap{
+  position: relative;
+  font-size: 20px;
+}
+
+.header_cart_num {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  padding: 0 5px;
+  border-radius: 100px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #b8292f;
+}
+
+.header_btn_cart {
+  color: #694a3a;
+}
+
+.header_btn_cart:hover{
+  cursor: pointer;
+}
+
+.header_btn_member {
+  font-size: 18px;
+  margin-right: 15px;
+  color: #694a3a;
+}
+
+.header_operation_wrap {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.header_member_dropdown {
+  position: absolute !important;
+  margin-top: 10px !important;
+}
+
+.header_member_dropdown > li{
+  margin: 10px 0;
+  padding: 0 5px;
+  color: #333;
+  display: list-item;
+  
+}
+
+.header_member_dropdown > li > a{
+  font-weight: bold;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  display: flex; 
+  flex-direction: column; 
+}
+main {
+  flex-grow: 1; 
+}

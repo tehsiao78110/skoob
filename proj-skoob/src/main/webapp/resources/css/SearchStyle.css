@@ -1,0 +1,145 @@
+@charset "UTF-8";
+
+#container{
+	margin: 20px 0;
+}
+
+
+
+
+
+footer {
+  display: flex;
+  justify-content: center;
+ 
+  padding-top: 30px;
+  background-color: #31384A;
+  opacity: 1;
+  height: 400px;
+}
+
+.footer_main {
+  margin: 0;
+  /* margin-left: 40px; */
+}
+
+.footer_main a {
+  text-decoration: none;
+  color: #CCCCCC;
+}
+
+.footer_item > ul {
+  padding-left: 0;
+}
+
+.footer_item > ul > li{
+  list-style: none;
+}
+
+.footer_item > h4 {
+  /* padding-left: 73px; */
+  color: #95C8CD;
+}
+
+.footer_item > ul > li:hover {
+  text-decoration: none;
+}
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fdd000;
+  height: 70px;
+}
+
+/* 標題設定 */
+.heander_index_title {
+  color: #694a3a;
+}
+
+.heander_index_title > h1{
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-style: oblique;
+  font-size: 2.8rem;
+}
+
+/*會員圖標設定 */
+.heander_index_title:link {
+  text-decoration:none;
+}
+
+.heander_index_title:hover {
+  color: #694a3a;
+}
+
+.header_main {
+  display: flex;
+  flex-direction: row;
+}
+
+.header_main > div {
+  display: flex;
+  align-items: center;
+}
+
+.header_form_wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.header_form_content {
+  display: flex;
+  flex-direction: row;
+}
+
+.header_input_text {
+  width: 750px;
+  height: 39px;
+  size: 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.header_btn_search {
+  color: white;
+  width: 45px;
+  border: 1px rgb(145, 144, 144) solid;
+  background-color: #694a3a;
+}
+
+.header_btn_login {
+  background-color: #fdd000;
+  color: #694a3a;
+  border: 1px #694a3a solid;
+  margin-right: 15px;
+  /* height: 16px; */
+}
+
+.header_btn_login:hover {
+  background-color: #694a3a;
+  color: white;
+}
+
+.header_btn_cart_wrap{
+  font-size: 20px;
+}
+
+.header_btn_cart {
+  color: #694a3a;
+}
+
+.header_btn_cart:hover{
+  cursor: pointer;
+}
+
+/*  */
+.header_btn_member {
+  font-size: 18px;
+  margin-right: 15px;
+  color: #694a3a;
+}
+
+.header_operation_wrap {
+  display: flex;
+  justify-content: flex-end;
+}

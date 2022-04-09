@@ -1,0 +1,119 @@
+
+.cart_step {
+  margin: 15px auto;
+  display: flex;
+  height: 45px;
+  justify-content: center;
+}
+
+.cart_step .step {
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 45px;
+  display: flex;
+  align-items: center;
+  color: #dedede;
+}
+
+.step1::before,
+.step2::before {
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+  display: block;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 500;
+  background: #dedede;
+  color: #fff;
+  margin-right: 5px;
+}
+
+.step1::after {
+  content: " ";
+  width: 40px;
+  height: 4px;
+  border-radius: 4px;
+  display: block;
+  background: #dedede;
+  margin: 0 10px;
+}
+
+.step1::before {
+  content: "1";
+}
+
+.step2::before {
+  content: "2";
+}
+
+/* 改變顏色 */
+.cart_step .step.on {
+  color: #b8292f;
+}
+
+.cart_step .step.on::before {
+  background: #b8292f;
+}
+.purchase {
+    width: 80%;
+    vertical-align: middle;
+    margin: auto;
+}
+
+.top {
+    color: rgb(128, 64, 0);
+    font-size: 25px;
+}
+
+.border {
+    border-color: rgb(230, 133, 226) !important;
+    padding: 10px;
+}
+
+/* .search-input { */
+/*     vertical-align: middle; */
+/* } */
+
+
+
+.toTop-arrow {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 33%;
+    opacity: 0.6;
+    background: #000;
+    cursor: pointer;
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    display: none;
+}
+
+.toTop-arrow::before,
+.toTop-arrow::after {
+    width: 18px;
+    height: 5px;
+    border-radius: 3px;
+    background: #f90;
+    position: absolute;
+    content: "";
+}
+
+.toTop-arrow::before {
+    transform: rotate(-45deg) translate(0, -50%);
+    left: 0.5rem;
+}
+
+.toTop-arrow::after {
+    transform: rotate(45deg) translate(0, -50%);
+    right: 0.5rem;
+}
+
+.toTop-arrow:focus {
+    outline: none;
+} 
