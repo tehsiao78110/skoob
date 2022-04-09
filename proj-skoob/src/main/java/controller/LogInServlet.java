@@ -24,7 +24,7 @@ import model.service.MemberService;
 import model.util.CartUtil;
 import model.vo.CartData;
 
-@WebServlet(urlPatterns = { "/pages/login.controller" })
+//@WebServlet(urlPatterns = { "/pages/login.controller" })
 public class LogInServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MemberService memberService;

@@ -25,7 +25,7 @@
 
 <body>
     <div>
-        <jsp:include page="/tag/header.jsp" />
+        <jsp:include page="../tag/header.jsp" />
         <div class="cart_step"> 
             <div class="step step1 ">購物車</div>
             <div class="step step2 on">資料填寫</div>
@@ -80,7 +80,7 @@
     </form>
     <br><br>
     <div class="footer">
-        <jsp:include page="/tag/footer.jsp" />
+        <jsp:include page="../tag/footer.jsp" />
     </div>
 </div>
 <div class="side_fixbtn">

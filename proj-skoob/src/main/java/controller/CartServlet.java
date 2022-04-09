@@ -30,7 +30,7 @@ import model.service.CartService;
 import model.util.CartUtil;
 import model.vo.CartData;
 
-@WebServlet(urlPatterns = { "/pages/cart.controller" })
+//@WebServlet(urlPatterns = { "/pages/cart.controller" })
 public class CartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CartService cartService;

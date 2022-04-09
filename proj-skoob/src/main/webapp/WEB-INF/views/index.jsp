@@ -25,7 +25,7 @@
 </head>
 
 <body>
-<jsp:include page="/tag/header.jsp" />
+<jsp:include page="tag/header.jsp" />
     <br>
     <main class="container">
         <h2>新書推薦</h2>

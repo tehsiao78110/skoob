@@ -37,7 +37,7 @@
                 </div>
 			</c:if>
 			<c:if test="${empty user}">
-				<button class="btn header_btn_login" onclick="location.href='/proj-skoob/pages/login.jsp'">登入/註冊</button>
+				<button class="btn header_btn_login" onclick="location.href='/proj-skoob/pages/login.controller'">登入/註冊</button>
 			</c:if>	
 			<div class="header_btn_cart_wrap">
 				

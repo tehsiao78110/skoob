@@ -20,7 +20,7 @@
 </head>
 <body>
 	<!-- 要使用相對路徑 -->
-	<jsp:include page="/tag/header.jsp" />
+	<jsp:include page="../tag/header.jsp" />
 
 <main class="container">
 	<form  class="container Register" action="/proj-skoob/pages/register.controller" method=post>
