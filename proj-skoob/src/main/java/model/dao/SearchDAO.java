@@ -14,11 +14,10 @@ import model.bean.ProductBean;
 public class SearchDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
+	
 	public Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
-	
-	
 	
 	public List<ProductBean> search(String keyword) {
 		if(keyword!=null) {

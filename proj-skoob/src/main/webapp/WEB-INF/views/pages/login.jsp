@@ -32,13 +32,13 @@
 	
 
 	<div class="txtin">
-		<input id="acc" type="text" name="useraccount" value="${param.useraccount}">
+		<input id="acc" type="text" name="account" value="${param.account}">
 		<span id="acc" class="hold" data-placeholder="帳號"></span>				
 	</div>	
 		<span class="error">${errors.useraccount}</span>
 				
 	<div class="txtin">
-		<input id="pw" type="password" name="password" value="${param.userpassword}">
+		<input id="pw" type="password" name="password" value="${param.password}">
 		<span class="hold" data-placeholder="密碼"></span>	
 			
 	</div>	

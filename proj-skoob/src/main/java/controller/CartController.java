@@ -25,7 +25,6 @@ public class CartController {
 
 	@GetMapping(path = { "/pages/cart.controller" })
 	public String get(Model model, HttpSession session) {
-		System.out.println("OK OK!!!");
 		// 取得登入的資訊
 		MemberBean memeber = (MemberBean) session.getAttribute("user");
 

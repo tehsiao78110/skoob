@@ -6,7 +6,7 @@
 <header>
 	<div class="container row header_main">
 		<div class="col">
-			<a class="heander_index_title" href="<c:url value="/index.jsp"/>" >
+			<a class="heander_index_title" href="<c:url value="/index"/>" >
 				<h1 class="Skoob">Skoob</h1>
 			</a>
 		</div>

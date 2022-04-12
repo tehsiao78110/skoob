@@ -65,7 +65,7 @@ public class LogInServlet extends HttpServlet {
 		// 導向view
 		if (member == null) {
 //			isRepeatAccount()回傳false,但是要繼續跑if loop 所以加上驚嘆號
-			if (!memberService.isRepeatAccount(account)) {
+			if (!memberService.checkAccountExist(account)) {
 				errors.put("useraccount", "登入失敗，帳號錯誤");
 			} else {
 				errors.put("userpassword", "登入失敗，密碼錯誤");
@@ -76,6 +76,7 @@ public class LogInServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", member);
 			session.setAttribute("birth", birth);
+			
 			// 登入成功後，要將該「會員購物車」裡面的商品，全部顯示出來
 			List<CartBean> cart = cartService.selectAll(member.getMemberid());
 			// 算出購物車裡面的必要資訊，儲存在 cartData 中

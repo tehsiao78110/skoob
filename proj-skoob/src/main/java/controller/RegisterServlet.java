@@ -106,7 +106,7 @@ public class RegisterServlet extends HttpServlet {
 			//檢查帳號
 			if(account==null || account.length()==0) {
 				errors.put("account","請輸入帳號");			
-			}else if(memberService.isRepeatAccount(account)) {
+			}else if(memberService.checkAccountExist(account)) {
 				errors.put("account","此帳號已被註冊");
 			}else if(!checkaccount(account)) {
 				errors.put("account","帳號格式須為英數字,長度介於6-12,可有_-");
