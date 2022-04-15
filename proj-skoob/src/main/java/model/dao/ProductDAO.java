@@ -45,10 +45,7 @@ public class ProductDAO {
 
 	// 查詢產品name
 	public ProductBean selectname(Integer productId) {
-		System.out.println("inside----selectname");
-		System.out.println("productId = " + productId);
 		if (productId != null) {
-
 			Query<ProductBean> query = sessionFactory.getCurrentSession().createQuery(
 					// "FROM ProductBean WHERE productId = :productId",ProductBean.class);
 					"FROM ProductBean WHERE productid = :productId", ProductBean.class);

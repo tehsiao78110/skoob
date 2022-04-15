@@ -84,7 +84,7 @@ public class ProductServlet extends HttpServlet {
 		if(member!=null) {
 			Integer memberid = member.getMemberid();			
 			account = member.getAccount();
-			boolean isfav = myFavService.selectfav(memberid, bean.getProductid());
+			boolean isfav = myFavService.checkMyfav(memberid, bean.getProductid());
 			System.out.println("isfav: "+isfav);
 			if (isfav) {
 				//true 表示該會員有將此本書納入收藏

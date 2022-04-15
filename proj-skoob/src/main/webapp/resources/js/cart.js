@@ -106,7 +106,6 @@ $(function () {
 
     if (parseInt(number) <= parseInt(Inventory)) {
       let dataToServer = {
-        cartAction: "put",
         productid: productid,
         number: number,
         subtotal: subtotal,

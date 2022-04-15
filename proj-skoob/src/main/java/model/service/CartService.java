@@ -117,47 +117,4 @@ public class CartService {
 		return false;
 	}
 
-//	public CartData addCart(MemberBean member, Integer productid) {
-//		CartData cartData = null;
-//		ProductBean product = cartDAO.selectProduct(productid);
-//		if (product != null) {
-//			// 確認資烙庫裡，Cart 是否已經存在了
-//			CartBean cart = cartDAO.select(member, product);
-//			// 如果購物車裡，該商品已經存在，它的數量就加 1，價格也要更新
-//			if (cart != null) {
-//				cart.setNumber(cart.getNumber() + 1);
-//				cart.setSubtotal(cart.getSubtotal() + product.getPrice());
-//			} else {
-//				// 如果購物車裡不存在，才新增一筆新的資料
-//				CartBean newCart = new CartBean();
-//				newCart.setMemberid(member.getMemberid());
-//				newCart.setProductid(product.getProductid());
-//				newCart.setNumber(1);
-//				newCart.setSubtotal(product.getPrice());
-//				cartDAO.insert(newCart);
-//			}
-//			// 取得會員的購物車資料
-//			List<CartBean> carts = cartDAO.selectAllSql(productid);
-//			if (carts != null && !carts.isEmpty()) {
-//				Integer totalCost = CartUtil.getCartTotalCost(carts);
-//				Integer cartNum = CartUtil.getCartProductNum(carts);
-//				Integer cartAllNum = CartUtil.getCartProductAllNum(carts);
-//				cartData = new CartData(totalCost, cartNum, cartAllNum);
-//			}
-//		}
-//		return cartData;
-//	}
-	
-//	public CartDTO getCartData(Collection<CartBean> carts) {
-//		CartDTO cartDTO = null;
-//		if (carts != null && !carts.isEmpty()) {
-//			Integer totalCost = CartUtil.getCartTotalCost(carts);
-//			Integer cartNum = CartUtil.getCartProductNum(carts);
-//			Integer cartAllNum = CartUtil.getCartProductAllNum(carts);
-//			cartDTO = new CartDTO(totalCost, cartNum, cartAllNum);
-//			return cartDTO;
-//		}
-//
-//		return null;
-//	}
 }

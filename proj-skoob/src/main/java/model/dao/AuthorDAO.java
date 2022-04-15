@@ -21,14 +21,11 @@ public class AuthorDAO {
 	
 	//查詢作者
 	public AuthorBean selectname(Integer authid) {
-		System.out.println("inside----selectname");
-		System.out.println("authid = " + authid);
 		if(authid!=null) {
 			Query<AuthorBean> query = sessionFactory.getCurrentSession().createQuery(
 					"FROM AuthorBean WHERE authorid = :authid",AuthorBean.class);	
 			query.setParameter("authid", authid);
 			AuthorBean author = query.uniqueResult();
-			System.out.println("AuthorBean : "+author);
 			return author;
 		}else {
 			return null;

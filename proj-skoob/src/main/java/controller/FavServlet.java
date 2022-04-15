@@ -73,7 +73,7 @@ public class FavServlet extends HttpServlet {
 		} //20210831
 		//20210831
 		//先判斷資料有沒有存在在收藏表中 如果有在表中要delete
-		boolean isexist = myFavService.selectfav(memberId,productId);
+		boolean isexist = myFavService.checkMyfav(memberId,productId);
 		String like = null;
 		if(isexist) {
 			//執行delete

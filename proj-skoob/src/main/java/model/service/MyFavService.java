@@ -114,11 +114,10 @@ public class MyFavService {
  	}
  	
 //	建興的 判斷有無收到FavBean
-	public boolean selectfav(Integer memberId, Integer productId) {
+	public boolean checkMyfav(Integer memberId, Integer productId) {
         MyFavBean result = null;
         if(memberId!= null && productId!= null) {
             result = myFavDAO.selectfavdao(memberId,productId);
-            System.out.println("aaaaaaaaa:"+result);
             if(result !=null) {
                 return true;
             }else{
@@ -132,16 +131,7 @@ public class MyFavService {
         if(memberId!= null && productId!= null) {
             myFavDAO.delete(memberId,productId);
         }
-    }
-    
-
-
-//    沒有東西 沒錯  喔喔  所以getProductname是寫在servlet?   是想先測試  等下
-    
- 
-    
-    
-    
+    }   
     
 }
 
