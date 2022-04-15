@@ -20,7 +20,7 @@ import model.service.MyFavService;
 import model.service.ProductService;
 
 
-@WebServlet(urlPatterns={"/pages/product.controller"})
+//@WebServlet(urlPatterns={"/pages/product.controller"})
 public class ProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private ProductService productService;
@@ -71,7 +71,7 @@ public class ProductServlet extends HttpServlet {
 		MemberBean member = (MemberBean)session.getAttribute("user");
 		
 		System.out.println("before----selectpro");
-		ProductBean bean = productService.selectpro(prodid);
+		ProductBean bean = productService.select(prodid);
 		System.out.println("after----selectpro");
 		
 		Integer ahtjor = bean.getAuthor();

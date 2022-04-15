@@ -1,16 +1,17 @@
-package model.vo;
+package model.dto;
 
-public class CartData {
+import java.util.List;
+
+import model.bean.CartBean;
+import util.CartUtil;
+
+public class CartDTO {
 
 	private Integer totalCost;
 	private Integer productNum;
 	private Integer productAllNum;
 
-	public CartData() {
-
-	}
-
-	public CartData(Integer totalCost, Integer productNum, Integer productAllNum) {
+	public CartDTO(Integer totalCost, Integer productNum, Integer productAllNum) {
 		this.totalCost = totalCost;
 		this.productNum = productNum;
 		this.productAllNum = productAllNum;

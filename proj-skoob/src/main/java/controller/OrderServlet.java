@@ -28,8 +28,8 @@ import model.bean.MemberBean;
 import model.bean.OrderBean;
 import model.bean.OrderitemBean;
 import model.bean.ProductBean;
+import model.dto.CartDTO;
 import model.service.OrderService;
-import model.vo.CartData;
 
 @WebServlet(urlPatterns = { "/pages/order.controllor" })
 public class OrderServlet extends HttpServlet {
@@ -107,7 +107,7 @@ public class OrderServlet extends HttpServlet {
 			memberid = ((MemberBean) userid).getMemberid();
 		}
 
-		CartData cartData = (CartData) session.getAttribute("cartData");
+		CartDTO cartDTO = (CartDTO) session.getAttribute("cartData");
 
 		// 接收參數
 		// 轉換參數
@@ -121,7 +121,7 @@ public class OrderServlet extends HttpServlet {
 		order.setMemberid(memberid);
 		order.setDelivery(delivery);
 		order.setPayment(payment);
-		order.setTotalprice(cartData.getTotalCost());
+		order.setTotalprice(cartDTO.getTotalCost());
 		order.setState("未完成");
 
 		String orderid = orderService.insertOrder(order);

@@ -30,7 +30,7 @@ public class ProductService {
 //		}
 //		return result;
 //	}
-	public ProductBean selectpro(Integer proid) {
+	public ProductBean select(Integer proid) {
 		//proid = 2;
 		System.out.println("before----selectname");
 		ProductBean bean = productDAO.selectname(proid);

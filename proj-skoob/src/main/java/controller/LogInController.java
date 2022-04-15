@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import model.bean.CartBean;
 import model.bean.MemberBean;
+import model.dto.CartDTO;
 import model.service.CartService;
 import model.service.MemberService;
-import model.util.CartUtil;
-import model.vo.CartData;
+import util.CartUtil;
 
 @Controller
 public class LogInController {
@@ -72,13 +72,10 @@ public class LogInController {
 			
 			// 登入成功後，要將該「會員購物車」裡面的商品，全部顯示出來
 			List<CartBean> cart = cartService.selectAll(member.getMemberid());
-			// 算出購物車裡面的必要資訊，儲存在 cartData 中
-			Integer totalCost = CartUtil.getCartTotalCost(cart);
-			Integer cartNum = CartUtil.getCartProductNum(cart);
-			Integer cartAllNum = CartUtil.getCartProductAllNum(cart);
-			CartData cartData = new CartData(totalCost, cartNum, cartAllNum);
+			// 算出購物車裡面的必要資訊，儲存在 cartDto 中
+			CartDTO cartDto = CartUtil.toCartDto(cart);
 			
-			session.setAttribute("cartData", cartData);
+			session.setAttribute("cartDto", cartDto);
 			
 			return "redirect:/index";
 		}

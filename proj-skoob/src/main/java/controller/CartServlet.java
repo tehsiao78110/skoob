@@ -26,9 +26,9 @@ import org.springframework.web.context.WebApplicationContext;
 import model.bean.CartBean;
 import model.bean.MemberBean;
 import model.bean.ProductBean;
+import model.dto.CartDTO;
 import model.service.CartService;
-import model.util.CartUtil;
-import model.vo.CartData;
+import util.CartUtil;
 
 //@WebServlet(urlPatterns = { "/pages/cart.controller" })
 public class CartServlet extends HttpServlet {
@@ -63,15 +63,10 @@ public class CartServlet extends HttpServlet {
 			request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
 		} else {
 			List<CartBean> cart = cartService.selectAll(memberid);
-			Integer totalCost = CartUtil.getCartTotalCost(cart);
-			Integer cartNum = CartUtil.getCartProductNum(cart);
-			Integer cartAllNum = CartUtil.getCartProductAllNum(cart);
-
-			CartData cartData = new CartData(totalCost, cartNum, cartAllNum);
-
+			CartDTO cartDTO = CartUtil.toCartDto(cart);
 			// 根據model執行結果，導向view
 			session.setAttribute("cart", cart);
-			session.setAttribute("cartData", cartData);
+			session.setAttribute("cartData", cartDTO);
 
 			request.getRequestDispatcher("/pages/cart.jsp").forward(request, response);
 		}
@@ -98,17 +93,17 @@ public class CartServlet extends HttpServlet {
 					productid = Integer.parseInt(temp);
 				}
 
-				CartData cartData = null;
+				CartDTO cartDTO = null;
 				// 呼叫model
 				if (member != null && productid != null) {
 					cartService.addCart(member, productid);
 					List<CartBean> carts = cartService.selectAllHql(member.getMemberid());
-					cartData = cartService.getCartData(carts);
+					cartDTO = CartUtil.toCartDto(carts);
 				} else {
 					response.sendError(response.SC_UNAUTHORIZED, temp);
 					return;
 				}
-				session.setAttribute("cartData", cartData);
+				session.setAttribute("cartData", cartDTO);
 
 				// 跳轉頁面
 				String page = request.getParameter("page");
@@ -166,13 +161,13 @@ public class CartServlet extends HttpServlet {
 				}
 
 				// 執行刪除的動作
-				CartData cartData = null;
+				CartDTO cartDTO = null;
 				if (memberid != null && prodIdList != null && !prodIdList.isEmpty()) {
 					cartService.deleteMulti(memberid, prodIdList);
 					List<CartBean> carts = cartService.selectAll(memberid);
-					cartData = cartService.getCartData(carts);
+					cartDTO = CartUtil.toCartDto(carts);
 				}
-				session.setAttribute("cartData", cartData);
+				session.setAttribute("cartData", cartDTO);
 				response.setStatus(HttpServletResponse.SC_OK);
 
 			} else if (cartAction.equals("delete")) {
@@ -181,13 +176,13 @@ public class CartServlet extends HttpServlet {
 				Integer productid = json.getInt("checkid");
 
 				// 執行刪除的動作
-				CartData cartData = null;
+				CartDTO cartDTO = null;
 				if (memberid != null && productid != null) {
 					cartService.delete(memberid, productid);
 					List<CartBean> carts = cartService.selectAll(memberid);
-					cartData = cartService.getCartData(carts);
+					cartDTO = CartUtil.toCartDto(carts);
 				}
-				session.setAttribute("cartData", cartData);
+				session.setAttribute("cartData", cartDTO);
 				response.setStatus(HttpServletResponse.SC_OK);
 			}
 

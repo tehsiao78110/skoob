@@ -32,7 +32,7 @@
 
 	<!-- 主要內容 -->
 	<main class="container">
-		<c:if test="${not empty cart}">
+		<c:if test="${not empty carts}">
 			<div class="row">
 				<div class="cart_step"> 
 					<div class="step step1 on">購物車</div>
@@ -54,7 +54,7 @@
 						<li class="col">操作</li>
 					</ul>
 					
-					<c:forEach var="rowItem" items="${cart}">
+					<c:forEach var="rowItem" items="${carts}">
 						<ul class="row">
 							<li class="cart_checkbox_wrap"><input
 								value="${rowItem.product.productid}" name="checkbox"
@@ -99,17 +99,17 @@
 
 					<ul class="row cart_area_checkout">
 						<li class="cart_checkbox_wrap">&nbsp;</li>
-						<li class="col-6 cart_product_number">總共有 ${cartData.productNum} 項商品</li>
+						<li class="col-6 cart_product_number">總共有 ${cartDto.productNum} 項商品</li>
 						<li class="col">&nbsp;</li>
 						<li class="col">總金額</li>
-						<li class="col cart_total_amount">${cartData.totalCost}</li>
+						<li class="col cart_total_amount">${cartDto.totalCost}</li>
 						<li class="col"><a href="checkout.jsp"> <button class="btn btn-warning"
 							value="下一步" id="checkout">下一步</button></a></li>
 					</ul>
 				</div>
 			</div>
 		</c:if>
-		<c:if test="${empty cart}">
+		<c:if test="${empty carts}">
 			<div class="cart_no_product">
 				<div class="cart_no_product_content">
 					<p>您的購物清單中沒有商品</p>

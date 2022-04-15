@@ -16,8 +16,8 @@ import model.bean.CartBean;
 import model.bean.MemberBean;
 import model.bean.ProductBean;
 import model.dao.CartDAO;
-import model.util.CartUtil;
-import model.vo.CartData;
+import model.dto.CartDTO;
+import util.CartUtil;
 
 @Service
 @Transactional
@@ -148,16 +148,16 @@ public class CartService {
 //		return cartData;
 //	}
 	
-	public CartData getCartData(Collection<CartBean> carts) {
-		CartData cartData = null;
-		if (carts != null && !carts.isEmpty()) {
-			Integer totalCost = CartUtil.getCartTotalCost(carts);
-			Integer cartNum = CartUtil.getCartProductNum(carts);
-			Integer cartAllNum = CartUtil.getCartProductAllNum(carts);
-			cartData = new CartData(totalCost, cartNum, cartAllNum);
-			return cartData;
-		}
-
-		return null;
-	}
+//	public CartDTO getCartData(Collection<CartBean> carts) {
+//		CartDTO cartDTO = null;
+//		if (carts != null && !carts.isEmpty()) {
+//			Integer totalCost = CartUtil.getCartTotalCost(carts);
+//			Integer cartNum = CartUtil.getCartProductNum(carts);
+//			Integer cartAllNum = CartUtil.getCartProductAllNum(carts);
+//			cartDTO = new CartDTO(totalCost, cartNum, cartAllNum);
+//			return cartDTO;
+//		}
+//
+//		return null;
+//	}
 }

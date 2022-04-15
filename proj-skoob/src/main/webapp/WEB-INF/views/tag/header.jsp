@@ -46,7 +46,7 @@
 					aria-hidden="true"></i>
 				</a>	
 				<span class="header_cart_num">
-                    <c:out value="${cartData.productAllNum}" default="0"/> 
+                    <c:out value="${cartDto.productAllNum}" default="0"/> 
                 </span>	
 					
 			</div>

@@ -24,7 +24,7 @@ import model.bean.OrderBean;
 import model.bean.OrderitemBean;
 import model.bean.ProductBean;
 import model.dao.OrderDAO;
-import model.util.OrderUtil;
+import util.OrderUtil;
 
 @Service
 @Transactional

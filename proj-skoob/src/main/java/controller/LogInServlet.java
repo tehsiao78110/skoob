@@ -19,10 +19,10 @@ import org.springframework.web.context.WebApplicationContext;
 
 import model.bean.CartBean;
 import model.bean.MemberBean;
+import model.dto.CartDTO;
 import model.service.CartService;
 import model.service.MemberService;
-import model.util.CartUtil;
-import model.vo.CartData;
+import util.CartUtil;
 
 //@WebServlet(urlPatterns = { "/pages/login.controller" })
 public class LogInServlet extends HttpServlet {
@@ -76,17 +76,14 @@ public class LogInServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", member);
 			session.setAttribute("birth", birth);
-			
+
 			// 登入成功後，要將該「會員購物車」裡面的商品，全部顯示出來
 			List<CartBean> cart = cartService.selectAll(member.getMemberid());
 			// 算出購物車裡面的必要資訊，儲存在 cartData 中
-			Integer totalCost = CartUtil.getCartTotalCost(cart);
-			Integer cartNum = CartUtil.getCartProductNum(cart);
-			Integer cartAllNum = CartUtil.getCartProductAllNum(cart);
-			CartData cartData = new CartData(totalCost, cartNum, cartAllNum);
-			
-			session.setAttribute("cartData", cartData);
-			
+			CartDTO cartDTO = CartUtil.toCartDto(cart);
+
+			session.setAttribute("cartData", cartDTO);
+
 			String path = request.getContextPath();
 			response.sendRedirect(path + "/index.jsp");
 		}
