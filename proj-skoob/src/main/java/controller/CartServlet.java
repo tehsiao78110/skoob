@@ -136,7 +136,7 @@ public class CartServlet extends HttpServlet {
 		Integer memberid = null;
 		HttpSession session = request.getSession();
 		MemberBean member = (MemberBean) session.getAttribute("user");
-		
+
 		// 確認是否『登入』
 		if (member != null) {
 			memberid = ((MemberBean) member).getMemberid();
@@ -201,23 +201,23 @@ public class CartServlet extends HttpServlet {
 		Integer memberid = null;
 		HttpSession session = request.getSession();
 		MemberBean member = (MemberBean) session.getAttribute("user");
-		
+
 		// 確認是否『登入』
 		if (member != null && member.getMemberid() != null && member.getMemberid() != 0) {
-			
+
 			// 接受 request body
 			BufferedReader br = request.getReader();
 			String data = br.readLine();
 
 			// 轉換成 json 格式
 			JSONObject json = new JSONObject(data);
-			
+
 			// 解析/轉換 json 資料
-			memberid = ((MemberBean) member).getMemberid();
+			memberid = member.getMemberid();
 			Integer productid = null;
 			Integer number = null;
 			Integer subtotal = null;
-			
+
 			try {
 				productid = json.getInt("productid");
 				number = json.getInt("number");
@@ -225,7 +225,7 @@ public class CartServlet extends HttpServlet {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			
+
 			// 呼叫Model
 			CartBean cart = new CartBean();
 			cart.setMemberid(memberid);
@@ -238,7 +238,7 @@ public class CartServlet extends HttpServlet {
 				cartService.update(cart);
 			} else {
 				System.out.println("前端頁面，出現了無法預期的錯誤");
-				response.sendError(response.SC_UNAUTHORIZED, "購物車出現異常的操錯");
+				response.sendError(response.SC_UNAUTHORIZED, "購物車出現異常的操作");
 			}
 
 		}

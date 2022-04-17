@@ -70,7 +70,6 @@ public class CartService {
 		boolean isSuccess = cartDAO.deleteAll(memberid, checkid);
 		// 確認資料有沒有刪除成功
 		if (isSuccess) {
-			System.out.println("delete success: " + isSuccess);
 			return true;
 		}
 		return false;
@@ -79,7 +78,6 @@ public class CartService {
 	public boolean delete(Integer memberid, Integer productid) {
 		boolean isSuccess = cartDAO.delete(memberid, productid);
 		if (isSuccess) {
-			System.out.println("delete success: " + isSuccess);
 			return true;
 		}
 		return false;
