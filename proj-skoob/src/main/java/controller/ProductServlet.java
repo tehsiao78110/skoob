@@ -16,7 +16,7 @@ import model.bean.AuthorBean;
 import model.bean.MemberBean;
 import model.bean.ProductBean;
 import model.service.AuthorService;
-import model.service.MyFavService;
+import model.service.MyfavService;
 import model.service.ProductService;
 
 
@@ -25,7 +25,7 @@ public class ProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private ProductService productService;
     private AuthorService authorService;
-    private MyFavService myFavService;
+    private MyfavService myfavService;
     String like = null ;
     String account = null;
     Integer prodid;
@@ -34,7 +34,7 @@ public class ProductServlet extends HttpServlet {
 		ApplicationContext context = (ApplicationContext)this.getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
 		productService = (ProductService)context.getBean("productService");
 		authorService = (AuthorService)context.getBean("authorService");
-		myFavService = (MyFavService)context.getBean("myFavService");
+		myfavService = (MyfavService)context.getBean("myFavService");
 	}
 	
 //    public void test(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
@@ -84,7 +84,7 @@ public class ProductServlet extends HttpServlet {
 		if(member!=null) {
 			Integer memberid = member.getMemberid();			
 			account = member.getAccount();
-			boolean isfav = myFavService.checkMyfav(memberid, bean.getProductid());
+			boolean isfav = myfavService.checkMyfav(memberid, bean.getProductid());
 			System.out.println("isfav: "+isfav);
 			if (isfav) {
 				//true 表示該會員有將此本書納入收藏

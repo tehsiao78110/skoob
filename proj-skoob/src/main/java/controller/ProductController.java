@@ -11,7 +11,7 @@ import model.bean.AuthorBean;
 import model.bean.MemberBean;
 import model.bean.ProductBean;
 import model.service.AuthorService;
-import model.service.MyFavService;
+import model.service.MyfavService;
 import model.service.ProductService;
 
 @Controller
@@ -21,7 +21,7 @@ public class ProductController {
 	@Autowired
 	private AuthorService authorService;
 	@Autowired
-	private MyFavService myFavService;
+	private MyfavService myfavService;
 
 	@GetMapping(path = "/pages/product.controller")
 	public String get(int prodid, Model model, HttpSession session) {
@@ -39,7 +39,7 @@ public class ProductController {
 
 		// 驗證是否登入
 		if (member != null && member.getMemberid() != null) {
-			boolean isfav = myFavService.checkMyfav(member.getMemberid(), product.getProductid());
+			boolean isfav = myfavService.checkMyfav(member.getMemberid(), product.getProductid());
 			// true 表示該會員有將此本書納入收藏
 			if (isfav) {
 				like = "like";

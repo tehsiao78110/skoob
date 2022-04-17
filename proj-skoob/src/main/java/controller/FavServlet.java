@@ -19,7 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 import model.bean.MemberBean;
 import model.bean.MyFavBean;
 import model.bean.ProductBean;
-import model.service.MyFavService;
+import model.service.MyfavService;
 
 //favorite是空的
 
@@ -27,7 +27,7 @@ import model.service.MyFavService;
 @WebServlet(urlPatterns = { "/pages/Fav.controller" })
 public class FavServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private MyFavService myFavService;
+	private MyfavService myfavService;
 	private Integer productId;
 	private Integer memberId;
 
@@ -35,7 +35,7 @@ public class FavServlet extends HttpServlet {
 	public void init() throws ServletException {
 		ApplicationContext context = (ApplicationContext) this.getServletContext()
 				.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
-		myFavService = context.getBean(MyFavService.class);
+		myfavService = context.getBean(MyfavService.class);
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -73,19 +73,19 @@ public class FavServlet extends HttpServlet {
 		} //20210831
 		//20210831
 		//先判斷資料有沒有存在在收藏表中 如果有在表中要delete
-		boolean isexist = myFavService.checkMyfav(memberId,productId);
+		boolean isexist = myfavService.checkMyfav(memberId,productId);
 		String like = null;
 		if(isexist) {
 			//執行delete
 			System.out.println("Fav執行delete");
-			myFavService.deletefav(memberId, productId);
+			myfavService.delete(memberId, productId);
 			System.out.println("delete後的: "+like);
 			//request.setAttribute("like", like);
 		}else {
 			MyFavBean bean = new MyFavBean();
 			bean.setProductId(productId); //傳入Service
 			bean.setMemberId(memberId);
-			MyFavBean myFavbean = myFavService.insertA(bean);
+			MyFavBean myFavbean = myfavService.insertA(bean);
 			like = "like";
 			System.out.println("Favinsert後的: "+like);
 		}

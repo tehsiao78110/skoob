@@ -4,7 +4,7 @@
 <%@ page import="model.service.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<jsp:useBean id="myFavService" class="model.service.MyFavService" />
+<jsp:useBean id="myFavService" class="model.service.MyfavService" />
 
 <html>
 
@@ -14,7 +14,6 @@
 <!-- CSS link -->
 
 <script src="https://kit.fontawesome.com/9b770e420b.js" crossorigin="anonymous"></script>
-<c:url value="/resources/js/jquery-3.4.1.js" />
 <script src="<c:url value="/resources/js/jquery-3.4.1.js" />"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -99,13 +98,12 @@
 				favDelete : "delete"
 			//屬性:值 
 			}
-			console.log(dataToServer);
 
 			$.ajax({
-				type : "post",
+				type : "delete",
 				dataType : "text",
-				data : dataToServer,
-				url : "/proj-skoob/favorite/myFav.controller",
+				data : JSON.stringify(dataToServer),
+				url : "/proj-skoob/pages/myFav.controller",
 				traditional : true
 			}).then(function(e) {
 				window.location.reload();

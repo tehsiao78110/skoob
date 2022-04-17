@@ -20,10 +20,10 @@ import org.springframework.web.context.WebApplicationContext;
 import model.bean.*;
 import model.service.*;
 
-@WebServlet(urlPatterns = { "/favorite/myFav.controller" })
+//@WebServlet(urlPatterns = { "/favorite/myFav.controller" })
 public class MyFavServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private MyFavService myFavService;
+	private MyfavService myfavService;
 	private ProductService productService; // 可以有兩個service? 超連結
 	private CartService cartService;
 	private Integer memberid;
@@ -33,7 +33,7 @@ public class MyFavServlet extends HttpServlet {
 	public void init() throws ServletException {
 		ApplicationContext context = (ApplicationContext) this.getServletContext()
 				.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
-		myFavService = context.getBean(MyFavService.class);
+		myfavService = context.getBean(MyfavService.class);
 		productService = context.getBean(ProductService.class);
 		cartService = context.getBean(CartService.class);
 
@@ -62,7 +62,7 @@ public class MyFavServlet extends HttpServlet {
 		} else {
 			memberid = member.getMemberid();
 
-			List<MyFavBean> favs = myFavService.selectMyFavs(memberid);
+			List<MyFavBean> favs = myfavService.selectMyFavs(memberid);
 			
 			for(MyFavBean myFav : favs) {
 				System.out.printf("from Servlet: member = %s,  productimg = %s,  product name = %s,  product price= %d%n",
@@ -97,7 +97,7 @@ public class MyFavServlet extends HttpServlet {
 		String favDelete = request.getParameter("favDelete");
 		Integer productid = Integer.parseInt(favProductid);
 		
-		myFavService.deletefav(memberId, productid);
+		myfavService.delete(memberId, productid);
 		
 	}
 	

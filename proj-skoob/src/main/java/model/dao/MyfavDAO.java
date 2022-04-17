@@ -14,7 +14,7 @@ import model.bean.ProductBean;
 import model.compkey.FavId;
 
 @Repository
-public class MyFavDAO {
+public class MyfavDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 //	private Session session; //不能直接創

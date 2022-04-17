@@ -58,14 +58,6 @@ public class CartService {
 		return null;
 	}
 
-	public boolean checkMember(Integer memberid) {
-		// 確認資料庫有抓出東西
-		if (memberid != null && (cartDAO.selectMember(memberid)) != null) {
-			return true;
-		}
-		return false;
-	}
-
 	public boolean deleteMulti(Integer memberid, List<Integer> checkid) {
 		boolean isSuccess = cartDAO.deleteAll(memberid, checkid);
 		// 確認資料有沒有刪除成功

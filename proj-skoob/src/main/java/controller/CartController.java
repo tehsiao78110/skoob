@@ -29,6 +29,7 @@ import model.bean.CartBean;
 import model.bean.MemberBean;
 import model.dto.CartDTO;
 import model.service.CartService;
+import model.service.MemberService;
 import util.CartUtil;
 
 @Controller
@@ -36,6 +37,8 @@ import util.CartUtil;
 public class CartController {
 	@Autowired
 	private CartService cartService;
+	@Autowired
+	private MemberService memberService;
 
 	@GetMapping
 	public String get(Model model, HttpSession session) {
@@ -46,7 +49,7 @@ public class CartController {
 		model.addAttribute("errors", errors);
 
 		// 驗證是否登入
-		if (member == null || member.getMemberid() == null || !cartService.checkMember(member.getMemberid())) {
+		if (member == null || member.getMemberid() == null || !memberService.checkAccountExist(member.getMemberid())) {
 			errors.put("cart", "要操作購物車，請先登入帳號");
 			model.addAttribute("errors", errors);
 			return "/pages/login";
@@ -64,8 +67,8 @@ public class CartController {
 	}
 
 	@PostMapping
-	public ResponseEntity post(String cartAction, Integer productid, String page, HttpSession session) {
-		if (cartAction != null && cartAction.equals("insert") && page != null) {
+	public ResponseEntity post(String cartAction, Integer productid, HttpSession session) {
+		if (cartAction != null && cartAction.equals("insert")) {
 			// 確認是否登入
 			MemberBean member = (MemberBean) session.getAttribute("user");
 
@@ -91,12 +94,11 @@ public class CartController {
 		MemberBean member = (MemberBean) session.getAttribute("user");
 
 		// 確認是否『登入』
-		if (member != null && member.getMemberid() != null && member.getMemberid() != 0) {
+		if (member != null && member.getMemberid() != null && memberService.checkAccountExist(member.getMemberid())) {
 			// 轉換成 json 格式
 			JSONObject json = new JSONObject(body);
 
 			// 解析/轉換 json 資料
-			Integer memberid = member.getMemberid();
 			Integer productid = null;
 			Integer number = null;
 			Integer subtotal = null;
@@ -111,7 +113,7 @@ public class CartController {
 
 			// 呼叫Model
 			CartBean cart = new CartBean();
-			cart.setMemberid(memberid);
+			cart.setMemberid(member.getMemberid());
 			cart.setProductid(productid);
 			cart.setNumber(number);
 			cart.setSubtotal(subtotal);
@@ -133,8 +135,8 @@ public class CartController {
 		MemberBean member = (MemberBean) session.getAttribute("user");
 
 		// 確認是否『登入』
-		if (member != null && member.getMemberid() != null && cartService.checkMember(member.getMemberid())) {
-			Integer memberid = ((MemberBean) member).getMemberid();
+		if (member != null && member.getMemberid() != null && memberService.checkAccountExist(member.getMemberid())) {
+			Integer memberid = member.getMemberid();
 
 			// 轉換成 json 格式
 			JSONObject json = new JSONObject(body);
@@ -145,7 +147,6 @@ public class CartController {
 			if (cartAction.equals("deleteMulti")) {
 				// 解析 json 資料 (解析為陣列)，並轉換成 list
 				JSONArray jsonArray = json.getJSONArray("checkid");
-				System.out.println("jsonArray = " + jsonArray);
 				ArrayList<Integer> prodIdList = new ArrayList();
 				for (int i = 0; i < jsonArray.length(); i++) {
 					prodIdList.add(jsonArray.getInt(i));
@@ -176,7 +177,7 @@ public class CartController {
 				return ResponseEntity.status(HttpStatus.OK).body(null);
 			}
 		}
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("請先登入帳號");
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
 	}
 
 }

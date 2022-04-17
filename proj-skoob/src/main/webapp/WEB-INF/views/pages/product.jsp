@@ -209,35 +209,52 @@
 <script>
     $(".title_pcoll").on("click", function (event) {
         $(this).siblings().toggleClass("more")
-
     })
     $(function () {
         $('.fav').click(function () {
-            // $(this).toggleClass("like")
+            let btn = $(this);
             if($(this).hasClass("like")){
-                alert("已加入收藏")
+                
                 var dataToServer = {
 		        	productid: $("#proidval").val()
 		        }
 		        $.ajax({
-			        type: "get",
+			        type: "post",
 				    dataType: "text",
 				    data: dataToServer,
-				    url: "/proj-skoob/pages/Fav.controller",
+				    url: "/proj-skoob/pages/myFav.controller",
 				    traditional: true
-		        })
+		        }).done(function (e) {
+		        	alert("已取消收藏")
+		        	btn.toggleClass("like")
+		        }).fail(function(){
+					swal({
+						  icon: 'error',
+						  title: '請先登入帳戶',			  
+						  timer: 1500
+						})
+				});
             }else{
-                alert("已取消收藏")
+                
                 var dataToServer = {
 		        	productid: $("#proidval").val()
 		        }
 		        $.ajax({
-			        type: "get",
+			        type: "post",
 				    dataType: "text",
 				    data: dataToServer,
-				    url: "/proj-skoob/pages/Fav.controller",
+				    url: "/proj-skoob/pages/myFav.controller",
 				    traditional: true
-		        })
+		        }).done(function (e) {
+		        	alert("已加入收藏")
+		        	btn.toggleClass("like")
+		        }).fail(function(){
+					swal({
+						  icon: 'error',
+						  title: '請先登入帳戶',			  
+						  timer: 1500
+						})
+				});
             }
 
         })
@@ -287,7 +304,7 @@
 	
 	//0905
 	$("#addcart").on("click", function() {	
-		console.log("OK!!!");
+		//console.log("OK!!!");
 		var dataToServer = {
 	        productid: $("#proidval").val(),
 	       	cartAction: "insert",
@@ -316,9 +333,6 @@
 			  title: '請先登入帳戶',			  
 			  timer: 1500
 			})
-			setTimeout(() => {
-				window.location.reload();
-			}, 1500);
 		})		
     })
 

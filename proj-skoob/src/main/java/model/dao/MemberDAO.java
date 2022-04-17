@@ -34,7 +34,6 @@ public class MemberDAO {
 					"FROM MemberBean WHERE account = :account",MemberBean.class);	
 			query.setParameter("account", account);
 			MemberBean memberaccount = query.uniqueResult();
-			System.out.println("account:"+memberaccount);
 			return memberaccount;
 		}else{
 			return null;
@@ -68,8 +67,11 @@ public class MemberDAO {
 		}
 		
 	}
-//	public List<MemberBean> selectInfo() {
-//		return this.getSession().createQuery(
-//				"from MemberBean", MemberBean.class).list();
-//	}
+	
+	public MemberBean selectMemberId(Integer membeid) {
+		if (membeid != null) {
+			return this.getSession().get(MemberBean.class, membeid);
+		}
+		return null;
+	}
 }

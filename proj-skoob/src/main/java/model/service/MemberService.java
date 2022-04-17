@@ -43,7 +43,7 @@ public class MemberService {
 		return bean;
 	}
 
-	// 確認帳號重複
+	// 確認帳號存在 (用名稱)
 	public boolean checkAccountExist(String bean) {
 		MemberBean account = memberDAO.selectAccount(bean);
 		if (account != null) {
@@ -53,6 +53,16 @@ public class MemberService {
 		}
 	}
 
+	// 確認帳號存在 (用id)
+	public boolean checkAccountExist(Integer id) {
+		MemberBean account = memberDAO.selectMemberId(id);
+		if (account != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	// 確認email重複
 	public boolean isRepeatEmail(MemberBean bean) {
 		MemberBean email = memberDAO.selectEmail(bean.getEmail());
