@@ -72,7 +72,7 @@ public class MyfavController {
 				MyFavBean bean = new MyFavBean();
 				bean.setMemberId(memberid);
 				bean.setProductId(productid);
-				MyFavBean myFavbean = myfavService.insertA(bean);
+				MyFavBean myFavbean = myfavService.addMyfav(bean);
 				like = "like";
 			}
 			model.addAttribute("like", like);

@@ -118,7 +118,7 @@ public class CartService {
 		boolean addSuccess = addCart(member, productid);
 		// 刪除掉我的最愛
 		boolean deleteSuccess = false;
-		MyFavBean isExist = myfavDAO.selectfavdao(member.getMemberid(), productid);
+		MyFavBean isExist = myfavDAO.select(member.getMemberid(), productid);
 		if (isExist != null) {
 			// 步驟完全成功才算成功
 			deleteSuccess = myfavDAO.delete(member.getMemberid(), productid);

@@ -25,49 +25,16 @@ public class MyfavService {
 	@Autowired
 	private ProductDAO productDAO;
 
-//	public ProductBean update(ProductBean bean) {
-//		ProductBean result = null;
-//		if(bean!=null && bean.getId()!=null) {
-//			result = productDao.update(bean.getName(), bean.getPrice(),
-//					bean.getMake(), bean.getExpire(), bean.getId());
-//		}
-//		return result;
-//	}
-
-// 刪除我的收藏
-//	public boolean delete(ProductBean bean) {
-//		boolean result = false;
-//		if(bean!=null && bean.getProductId()!=null) {
-//			result = productDAO.delete(bean.getProductId());
-//		}
-//		return result;
-//	}	
-//	
-
-//	呼叫 myFavDAO.insert  
-	public MyFavBean insertA(MyFavBean bean) {
+	// 新增「我的收藏」
+	public MyFavBean addMyfav(MyFavBean bean) {
 		MyFavBean result = null;
 		if (bean != null && bean.getProductId() != null && bean.getMemberId() != null) {
-			result = myfavDAO.insertB(bean);
+			result = myfavDAO.insert(bean);
 		}
 		return result;
 	}
 
-//  傳送MyFavBean
-	public MyFavBean selectMyFav(Integer memberId, Integer productId) {
-		MyFavBean result = null;
-		if (memberId != null && productId != null) {
-
-			MyFavBean favor = myfavDAO.selectMyFav(memberId, productId);
-
-			String result1 = favor.getProduct().getProductname();
-			System.out.println("from Service: 書名= " + result1);
-			return favor;
-		}
-		return result;
-	}
-
-//    傳送Set<MyFavBeans>   轉換成List   
+	// 取得「會員」的『所有收藏商品』   
 	public List<MyFavBean> selectMyFavs(Integer memberId) {
 		List<MyFavBean> result = null;
 		if (memberId != null) {
@@ -84,20 +51,11 @@ public class MyfavService {
 		return result;
 	}
 
-//
-	public boolean checkMember(Integer memberId) {
-		// 確認資料庫有抓出東西
-		if (memberId != null && (myfavDAO.selectMember(memberId)) != null) {
-			return true;
-		}
-		return false;
-	}
-
-//	建興的 判斷有無收到FavBean
+	// 確認商品，是否有被收藏
 	public boolean checkMyfav(Integer memberId, Integer productId) {
 		MyFavBean result = null;
 		if (memberId != null && productId != null) {
-			result = myfavDAO.selectfavdao(memberId, productId);
+			result = myfavDAO.select(memberId, productId);
 			if (result != null) {
 				return true;
 			} else {
@@ -107,7 +65,7 @@ public class MyfavService {
 		return false;
 	}
 
-// 刪除一筆收藏
+	// 刪除一筆收藏
 	public boolean delete(Integer memberId, Integer productId) {
 		boolean isExist = checkMyfav(memberId, productId);
 		if (isExist) {

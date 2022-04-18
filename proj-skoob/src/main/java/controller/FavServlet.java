@@ -85,7 +85,7 @@ public class FavServlet extends HttpServlet {
 			MyFavBean bean = new MyFavBean();
 			bean.setProductId(productId); //傳入Service
 			bean.setMemberId(memberId);
-			MyFavBean myFavbean = myfavService.insertA(bean);
+			MyFavBean myFavbean = myfavService.addMyfav(bean);
 			like = "like";
 			System.out.println("Favinsert後的: "+like);
 		}
