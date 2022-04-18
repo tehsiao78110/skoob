@@ -113,7 +113,7 @@
 			<div class="cart_no_product">
 				<div class="cart_no_product_content">
 					<p>您的購物清單中沒有商品</p>
-					<a href="" class="continue_buy">請繼續選購</a>
+					<a href="<c:url value="/"/>" class="continue_buy">請繼續選購</a>
 				</div>
 			</div>
 		</c:if>

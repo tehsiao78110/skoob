@@ -19,10 +19,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import model.bean.CartBean;
 import model.bean.MemberBean;
 import model.bean.MyFavBean;
+import model.dto.CartDTO;
+import model.service.CartService;
 import model.service.MemberService;
 import model.service.MyfavService;
+import util.CartUtil;
 
 @Controller
 @RequestMapping("/pages/myFav.controller")
@@ -31,11 +35,11 @@ public class MyfavController {
 	private MemberService memberService;
 	@Autowired
 	private MyfavService myfavService;
+	@Autowired
+	private CartService cartService;
 
 	@GetMapping
 	public String get(Model model, HttpSession session) {
-		System.out.println("myfov get!!");
-
 		// 取得登入的資訊
 		MemberBean member = (MemberBean) session.getAttribute("user");
 
@@ -77,6 +81,30 @@ public class MyfavController {
 		return "XXXXXX";
 	}
 
+	@PostMapping("/cart")
+	public ResponseEntity postCart(HttpSession session,Integer productid) {
+		System.out.println("productid = " + productid);
+		// 取得登入的資訊
+		MemberBean member = (MemberBean) session.getAttribute("user");
+		// 驗證是否登入
+		if (member != null && member.getMemberid() != null && memberService.checkAccountExist(member.getMemberid())) {
+			try {
+				// 將收藏「加入購物車」並『刪除』
+				cartService.addMyfavToCart(member, productid);
+				// 更新購物車資料
+				List<CartBean> carts = cartService.selectAllHql(member.getMemberid());
+				CartDTO cartDTO = CartUtil.toCartDto(carts);
+				session.setAttribute("cartDto", cartDTO);
+				// 回應客戶端成功訊息
+				return ResponseEntity.status(HttpStatus.OK).body("成功加入購物車");
+			} catch (Exception e) {
+				e.printStackTrace();
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("加入購物車，出現異常的操作");
+			}
+		}
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("請先登入帳號");
+	}
+	
 	@DeleteMapping
 	public ResponseEntity delete(HttpSession session, @RequestBody String body) {
 		System.out.println("body = " + body);

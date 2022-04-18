@@ -31,41 +31,50 @@
 	<jsp:include page="../tag/header.jsp" />
 
 	<main class="container ">
-
-		<div class="myFav_area">
-
-			<ul class="row myFav_area_header">
-				<li class="col-6">收藏商品</li>
-				<li class="col">價格</li>
-				<li class="col">刪除</li>
-				<li class="col">加入購物車</li>
-			</ul>
-			<c:forEach var="myFavBean" items="${favs}">
-				<ul class="row myFav_area_content">
-					<input class="proidval" type="number" name="productid"
-						value="${myFavBean.product.productid}" style="display: none;">
-					<li class="col-6">
-						<div class="myFav_product_wrap">
-							<img width=120px heith=80px alt=""
-								src="<c:url value="/resources/pic/${myFavBean.product.productpic}.jpg" />">
-							<div class="myFav_product_title_wrap">${myFavBean.product.productname}</div>
-						</div>
-					</li>
-					<li class="col">${myFavBean.product.price}</li>
-					<li class="col"><button type="submit" class="delete fav_btn">
-							<i class="far fa-trash-alt fa-lg"></i>
-						</button></li>
-					<!-- 刪除 -->
-
-					<li class="col"><button type="submit" class="addCart fav_btn"
-							name="cartAction" value="insert">
-							<i class="fas fa-shopping-cart fa-lg"></i>
-						</button></li>
+		<c:if test="${not empty favs}">
+			<div class="myFav_area">
+	
+				<ul class="row myFav_area_header">
+					<li class="col-6">收藏商品</li>
+					<li class="col">價格</li>
+					<li class="col">刪除</li>
+					<li class="col">加入購物車</li>
 				</ul>
-				<hr>
-			</c:forEach>
-		</div>
-
+				<c:forEach var="myFavBean" items="${favs}">
+					<ul class="row myFav_area_content">
+						<input class="proidval" type="number" name="productid"
+							value="${myFavBean.product.productid}" style="display: none;">
+						<li class="col-6">
+							<div class="myFav_product_wrap">
+								<img width=120px heith=80px alt=""
+									src="<c:url value="/resources/pic/${myFavBean.product.productpic}.jpg" />">
+								<div class="myFav_product_title_wrap">${myFavBean.product.productname}</div>
+							</div>
+						</li>
+						<li class="col">${myFavBean.product.price}</li>
+						<li class="col"><button type="submit" class="delete fav_btn">
+								<i class="far fa-trash-alt fa-lg"></i>
+							</button></li>
+						<!-- 刪除 -->
+	
+						<li class="col">
+							<button class="addCart fav_btn" name="cartAction" value="insert">
+								<i class="fas fa-shopping-cart fa-lg"></i>
+							</button>
+						</li>
+					</ul>
+					<hr>
+				</c:forEach>
+			</div>
+		</c:if>
+		<c:if test="${empty favs}">
+			<div class="myFav_no_product">
+				<div class="myFav_no_product_content">
+					<p>您沒有收藏任何商品</p>
+					<a href="<c:url value="/"/>" class="continue_buy">回首頁</a>
+				</div>
+			</div>
+		</c:if>
 
 
 	</main>
@@ -91,7 +100,7 @@
 			}).scroll();
 		});
 
-		//        刪除收藏
+		// 刪除收藏
 		$(".delete").on("click", function() {
 			var dataToServer = {
 				productid : $(".proidval").val(),
@@ -111,46 +120,30 @@
 		})
 
 		$(".addCart").on("click", function() {
-			swal({
-				icon : 'success',
-				title : '已將此商品加入購物車',
-				timer : 1500
-			}).then(function() {
-				var dataToServer = {
-					productid : $(".proidval").val(),
-					cartAction : "insert",
-					page : "myFav" //page待命  導致新的一頁 
-				}
+			let dataToServer = {
+				productid : $(".proidval").val(),
+				cartAction : "insert",
+				page : "myFav" //page待命  導致新的一頁 
+			}
 
-				console.log(dataToServer);
+			console.log(dataToServer);
 
-				$.ajax({
-					type : "post",
-					dataType : "text",
-					data : dataToServer,
-					url : "/proj-skoob/pages/cart.controller",
-					traditional : true
-				})
-			}).then(function() {
-				var dataToServer = {
-					productid : $(".proidval").val(),
-					favDelete : "delete"
-				//屬性:值 
-				}
-				console.log("delete  " + dataToServer);
-
-				$.ajax({
-					type : "post",
-					dataType : "text",
-					data : dataToServer,
-					url : "/proj-skoob/favorite/myFav.controller",
-					traditional : true
-				}).then(function(e) {
+			$.ajax({
+				type : "post",
+				dataType : "text",
+				data : dataToServer,
+				url : "/proj-skoob/pages/myFav.controller/cart",
+				traditional : true
+			}).done(
+				swal({
+					icon : 'success',
+					title : '已將此商品加入購物車',
+					timer : 1500
+				}).then( function() {
 					window.location.reload();
-				});
-			})
-		})
-
+				})
+			)
+		})	
 		//    滑鼠移到變暗     $(document).ready(function (){  
 		//         	$("p").mouseover(function () {
 		// 				$("p").css("background-color","coral");

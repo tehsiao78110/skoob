@@ -11,11 +11,14 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import model.bean.CartBean;
 import model.bean.MemberBean;
+import model.bean.MyFavBean;
 import model.bean.ProductBean;
 import model.dao.CartDAO;
+import model.dao.MyfavDAO;
 import model.dto.CartDTO;
 import util.CartUtil;
 
@@ -24,6 +27,8 @@ import util.CartUtil;
 public class CartService {
 	@Autowired
 	private CartDAO cartDAO;
+	@Autowired
+	private MyfavDAO myfavDAO;
 
 	public List<CartBean> selectAll(Integer memberid) {
 		List<CartBean> result = null;
@@ -48,7 +53,7 @@ public class CartService {
 
 		return null;
 	}
-	
+
 	public List<CartBean> selectAllSql(Integer memberid) {
 
 		if (memberid != null && memberid != 0) {
@@ -101,10 +106,28 @@ public class CartService {
 				newCart.setSubtotal(product.getPrice());
 				cartDAO.insert(newCart);
 			}
-			
 			return true;
 		}
 		return false;
 	}
 
+	// 將『我的最愛』加到「購物車」
+	@Transactional(rollbackFor = Exception.class) 
+	public boolean addMyfavToCart(MemberBean member, Integer productid) {
+		// 加入購物車
+		boolean addSuccess = addCart(member, productid);
+		// 刪除掉我的最愛
+		boolean deleteSuccess = false;
+		MyFavBean isExist = myfavDAO.selectfavdao(member.getMemberid(), productid);
+		if (isExist != null) {
+			// 步驟完全成功才算成功
+			deleteSuccess = myfavDAO.delete(member.getMemberid(), productid);
+		}
+		// 兩個步驟都必須成功
+		if ((addSuccess && deleteSuccess) == false) {
+				throw new RuntimeException();
+		} else {
+			return true;
+		}
+	}
 }

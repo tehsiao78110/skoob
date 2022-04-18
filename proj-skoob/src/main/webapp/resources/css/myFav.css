@@ -61,7 +61,7 @@
 
 /* 表格的CSS */
 main {
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .table {
@@ -132,4 +132,34 @@ main {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.continue_buy {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 20px;
+  background-color: #c80000;
+  border: #c80000 1px solid;
+  border-bottom: #ae0909 4px solid;
+  color: #fff;
+  text-align: center;
+  font-size: 1rem;
+  border-radius: 3px;
+  /* 超連結樣式 */
+  text-decoration:none;
+}
+
+.myFav_no_product{
+  border: #b8292f 1px solid;
+  padding: 150px 5%;
+  margin: 15px 0;
+  font-size: 1.7rem;
+  color: #b8292f;
+}
+
+.myFav_no_product_content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

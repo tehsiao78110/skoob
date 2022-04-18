@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import model.bean.MemberBean;
 import model.bean.MyFavBean;
 import model.bean.ProductBean;
 import model.dao.MyfavDAO;
@@ -23,15 +24,6 @@ public class MyfavService {
 
 	@Autowired
 	private ProductDAO productDAO;
-
-	// 加到購物車
-	public ProductBean insert(ProductBean bean) {
-		ProductBean result = null;
-		if (bean != null && bean.getProductid() != null) {
-			result = productDAO.insert(bean);
-		}
-		return result;
-	}
 
 //	public ProductBean update(ProductBean bean) {
 //		ProductBean result = null;
@@ -119,8 +111,7 @@ public class MyfavService {
 	public boolean delete(Integer memberId, Integer productId) {
 		boolean isExist = checkMyfav(memberId, productId);
 		if (isExist) {
-			myfavDAO.delete(memberId, productId);
-			return true;
+			return myfavDAO.delete(memberId, productId);
 		}
 		return false;
 	}

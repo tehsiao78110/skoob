@@ -42,8 +42,7 @@
 			<div class="header_btn_cart_wrap">
 				
 				<a href="<c:url value="/pages/cart.controller"/>">
-				<i class="fa fa-shopping-cart fa-lg header_btn_cart"
-					aria-hidden="true"></i>
+					<i class="fa fa-shopping-cart fa-lg header_btn_cart" aria-hidden="true"></i>
 				</a>	
 				<span class="header_cart_num">
                     <c:out value="${cartDto.productAllNum}" default="0"/> 

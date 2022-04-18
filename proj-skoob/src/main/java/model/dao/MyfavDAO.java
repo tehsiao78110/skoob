@@ -98,17 +98,16 @@ public class MyfavDAO {
 	}
 
 // 刪除一筆收藏
-	public void delete(Integer memberId, Integer productId) {
+	public boolean delete(Integer memberId, Integer productId) {
 		if (memberId != null && productId != null) {
 			String hql = "delete from MyFavBean where memberId=?0 and productId=?1";
 			Query query = sessionFactory.getCurrentSession().createQuery(hql);
 			query.setParameter(0, memberId);
 			query.setParameter(1, productId);
 			query.executeUpdate();
-			// sessionFactory.getCurrentSession().beginTransaction().commit();
-			// return true;
+			 return true;
 		} else {
-			// return false;
+			 return false;
 		}
 	}
 }
