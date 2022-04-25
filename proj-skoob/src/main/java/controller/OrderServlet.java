@@ -31,7 +31,7 @@ import model.bean.ProductBean;
 import model.dto.CartDTO;
 import model.service.OrderService;
 
-@WebServlet(urlPatterns = { "/pages/order.controllor" })
+//@WebServlet(urlPatterns = { "/pages/order.controllor" })
 public class OrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private OrderService orderService;

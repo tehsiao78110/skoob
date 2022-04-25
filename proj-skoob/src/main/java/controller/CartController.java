@@ -76,7 +76,9 @@ public class CartController {
 			if (member != null && productid != null) {
 				cartService.addCart(member, productid);
 				List<CartBean> carts = cartService.selectAllHql(member.getMemberid());
+				System.out.println("carts = " + carts);
 				CartDTO cartDTO = CartUtil.toCartDto(carts);
+				System.out.println("cartDTO = " + cartDTO);
 				session.setAttribute("cartDto", cartDTO);
 				return ResponseEntity.status(HttpStatus.OK).body(null);
 			} else {

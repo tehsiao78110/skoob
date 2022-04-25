@@ -70,9 +70,9 @@ public class LogInController {
 			session.setAttribute("user", member);
 			session.setAttribute("birth", birth);
 			
-			// 登入成功後，要將該「會員購物車」裡面的商品，全部顯示出來
+			// 登入成功後，要將該「會員購物車」裡面的商品，全部抓出來
 			List<CartBean> cart = cartService.selectAll(member.getMemberid());
-			// 算出購物車裡面的必要資訊，儲存在 cartDto 中
+			// 並算出購物車裡面的必要資訊，儲存在 cartDto 中
 			CartDTO cartDto = CartUtil.toCartDto(cart);
 			
 			session.setAttribute("cartDto", cartDto);

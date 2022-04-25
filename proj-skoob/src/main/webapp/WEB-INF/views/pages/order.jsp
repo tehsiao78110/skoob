@@ -68,7 +68,7 @@
 					<div class="item1">${rowItem.orderid}</div>
 					<%-- 				<div class="item1">${(rowItem.ordertime)}</div> --%>
 					<div class="item1">
-						<fmt:formatDate type="date" value="${rowItem.ordertime}" />
+						<fmt:formatDate type="both" value="${rowItem.ordertime}" />
 					</div>
 					<div class="item1">${rowItem.totalprice}</div>
 					<div class="item1">${rowItem.payment}</div>
@@ -81,7 +81,7 @@
 
 
 							<div>
-								<button type="button" disabled="disabled" onclick="alert1()"
+								<button type="button" disabled="disabled"
 									class="btn btn-danger cancelbtn" name="cancel"
 									value="${rowItem.orderid}">退貨</button>
 							</div>
@@ -89,7 +89,7 @@
 						</c:when>
 						<c:when test="${rowItem.state=='完成'}">
 							<div>
-								<button type="button" disabled="disabled" onclick="alert1()"
+								<button type="button" disabled="disabled"
 									class="btn btn-danger cancelbtn" name="cancel"
 									value="${rowItem.orderid}">退貨</button>
 							</div>
@@ -98,7 +98,7 @@
 
 						<c:otherwise>
 							<div>
-								<button type="button" onclick="alert1()"
+								<button type="button"
 									class="btn btn-danger cancelbtn" name="cancel"
 									value="${rowItem.orderid}">退貨</button>
 							</div>
@@ -113,7 +113,7 @@
 
 
 							<div>
-								<button type="button" disabled="disabled" onclick="alert2()"
+								<button type="button" disabled="disabled"
 									class="btn btn-danger done" name="done"
 									value="${rowItem.orderid}">已接收</button>
 							</div>
@@ -121,14 +121,14 @@
 						</c:when>
 						<c:when test="${rowItem.state=='完成'}">
 							<div>
-								<button type="button" disabled="disabled" onclick="alert2()"
+								<button type="button" disabled="disabled"
 									class="btn btn-danger done" name="done"
 									value="${rowItem.orderid}">已接收</button>
 							</div>
 						</c:when>
 						<c:otherwise>
 							<div>
-								<button type="button" onclick="alert2()"
+								<button type="button"
 									class="btn btn-danger done" name="done"
 									value="${rowItem.orderid}">已接收</button>
 							</div>

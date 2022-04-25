@@ -103,8 +103,11 @@
 						<li class="col">&nbsp;</li>
 						<li class="col">總金額</li>
 						<li class="col cart_total_amount">${cartDto.totalCost}</li>
-						<li class="col"><a href="checkout.jsp"> <button class="btn btn-warning"
-							value="下一步" id="checkout">下一步</button></a></li>
+						<li class="col">
+							<a href="<c:url value="/pages/checkout.controller"/>">
+								<button class="btn btn-warning" value="下一步" id="checkout">下一步</button>
+							</a>
+						</li>
 					</ul>
 				</div>
 			</div>

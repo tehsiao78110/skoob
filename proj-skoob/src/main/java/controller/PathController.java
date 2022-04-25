@@ -11,4 +11,8 @@ public class PathController {
 		return "/index";
 	}
 	
+	@GetMapping("/pages/checkout.controller")
+	public String checkout() {
+		return "/pages/checkout";
+	}
 }

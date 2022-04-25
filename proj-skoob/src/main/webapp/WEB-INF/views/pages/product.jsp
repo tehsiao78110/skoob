@@ -41,25 +41,22 @@
         <div class="row">
             <div class="col-sm-4">
                 <div>
-                  	<!--  <img src="../pic/00${id}-1.jpg" width="250px" height="250px">-->
-                  	<!-- <p> ${pro.productpic}</p>-->
-                	<!-- <img src="${pro.productpic}" width="250px" height="250px">-->
+
                   	<div class="slideshow-container">
 
 						<div class="mySlides ifade">
-						  <img src="<c:url value="/resources/pic/${pro.productpic}.jpg"/>" style="width:100%">	
+							<div style="background-image: url(<c:url value="/resources/pic/${pro.productpic}.jpg"/>);"
+								 class="product_img"></div>
 						</div>
 						
 						<div class="mySlides ifade">
-						 
-						 <!-- <img src="../pic/001.jpg"  width="250px" height="250px">-->
-						  <img src="<c:url value="/resources/pic/${pro.productpic}-1.jpg"/>"  style="width:100%" >
-						  
+							<div style="background-image: url(<c:url value="/resources/pic/${pro.productpic}-1.jpg"/>);"
+								 class="product_img"></div>
 						</div>
 						
 						<div class="mySlides ifade">
-						  <!--<img src="../pic/002.jpg" width="250px" height="250px">-->
-						  <img src="<c:url value="/resources/pic/${pro.productpic}-2.jpg"/>" style="width:100%">
+							<div style="background-image: url(<c:url value="/resources/pic/${pro.productpic}-2.jpg"/>);"
+								 class="product_img"></div>
 						</div>
 						
 						<div class="prevb"><a class="prev" onclick="plusSlides(-1)">&#10094;</a></div>

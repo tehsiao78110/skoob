@@ -100,7 +100,7 @@
 	    }).scroll();
     });
     function submit_sure(){
-        var flag =confirm("確定訂購?");
+        let flag =confirm("確定訂購?");
         if(flag==true){
             alert("訂購完成");
             return true;
