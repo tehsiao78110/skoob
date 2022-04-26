@@ -29,7 +29,7 @@ public class OrderDAO {
 		return sessionFactory.getCurrentSession();
 	}
 
-	public OrderBean update(String id, String state) {
+	public OrderBean update(String id, Byte state) {
 		if (id != null) {
 			OrderBean bean = this.getSession().get(OrderBean.class, id);
 			if (bean != null) {

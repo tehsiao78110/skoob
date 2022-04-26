@@ -66,7 +66,7 @@ public class OrderController {
 			order.setDelivery(delivery);
 			order.setPayment(payment);
 			order.setTotalprice(cartDto.getTotalCost());
-			order.setState("未完成");
+			order.setState((byte) 0);
 
 			String orderid = orderService.insertOrder(order);
 			// 2. 將購物車的資料放入訂單項目
@@ -110,12 +110,12 @@ public class OrderController {
 				if (orderAction.equals("cancel")) {
 					OrderBean bean1 = new OrderBean();
 					bean1.setOrderid(orderid);
-					bean1.setState("申請退貨中");
+					bean1.setState((byte) 3);
 					OrderBean update = orderService.update(bean1);
 				} else if (orderAction.equals("done")) {
 					OrderBean bean1 = new OrderBean();
 					bean1.setOrderid(orderid);
-					bean1.setState("完成");
+					bean1.setState((byte) 2);
 					OrderBean update = orderService.update(bean1);
 				} else {
 					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("未知的操作指令");

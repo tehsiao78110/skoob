@@ -1,7 +1,7 @@
 package model.service;
 
 import java.io.Serializable;
-import java.lang.reflect.Member;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -9,20 +9,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import org.jboss.jandex.Main;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.mysql.cj.Session;
-import com.sun.xml.bind.v2.runtime.output.StAXExStreamWriterOutput;
 
 import model.bean.CartBean;
 import model.bean.MemberBean;
 import model.bean.OrderBean;
 import model.bean.OrderitemBean;
-import model.bean.ProductBean;
 import model.dao.OrderDAO;
 import util.OrderUtil;
 
@@ -42,7 +36,7 @@ public class OrderService {
 			Collections.sort(lists, new Comparator<OrderBean>() {
 				@Override
 				public int compare(OrderBean o1, OrderBean o2) {
-					return o1.getOrderid().compareTo(o2.getOrderid());
+					return -o1.getOrdertime().compareTo(o2.getOrdertime());
 				}
 			});
 			return lists;
@@ -62,6 +56,7 @@ public class OrderService {
 	public String insertOrder(OrderBean order) {
 		// 時間
 		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
 		order.setOrdertime(date);
 
 		// id

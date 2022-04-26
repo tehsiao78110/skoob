@@ -81,14 +81,14 @@ public class OrderServlet extends HttpServlet {
 					OrderBean bean1 = new OrderBean();
 					bean1.setOrderid(orderid);
 //					bean1.setState("已取消");
-					bean1.setState("申請退貨中");
+					bean1.setState((byte) 3);
 					OrderBean update = orderService.update(bean1);
 				}
 			}
 			if (orderaction.equals("done")) {
 				OrderBean bean1 = new OrderBean();
 				bean1.setOrderid(orderid);
-				bean1.setState("完成");
+				bean1.setState((byte) 2);
 				OrderBean update = orderService.update(bean1);
 			}
 		}
@@ -122,7 +122,7 @@ public class OrderServlet extends HttpServlet {
 		order.setDelivery(delivery);
 		order.setPayment(payment);
 		order.setTotalprice(cartDTO.getTotalCost());
-		order.setState("未完成");
+		order.setState((byte) 0);
 
 		String orderid = orderService.insertOrder(order);
 

@@ -44,7 +44,7 @@ public class OrderBean {
 	private String payment;
 	private String delivery;
 	private Integer totalprice;
-	private String state;
+	private Byte state;
 	
 
 	@Override
@@ -103,11 +103,11 @@ public class OrderBean {
 		this.totalprice = totalprice;
 	}
 
-	public String getState() {
+	public Byte getState() {
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(Byte state) {
 		this.state = state;
 	}
 

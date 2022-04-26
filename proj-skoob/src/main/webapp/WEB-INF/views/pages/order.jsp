@@ -27,8 +27,10 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>">
 <link rel="stylesheet" href="<c:url value="/resources/css/header.css" />">
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="<c:url value="/resources/extension/bootstrap/css/bootstrap.min.css"/>">
 <script src="<c:url value="/resources/extension/bootstrap/js/bootstrap.bundle.min.js"/>"></script>
+<%-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="<c:url value="/resources/extension/bootstrap/js/bootstrap.bundle.min.js"/>"></script> --%>
 <link rel="stylesheet" href="<c:url value="/resources/css/order.css" />">
 
 <!-- 匯入自訂的 js -->
@@ -42,101 +44,49 @@
 	<jsp:include page="../tag/header.jsp" />
     <br>
 
-	<nav class="container">
+	<main class="container order_main">
+	<nav>
 		<div>
 			<p>訂單紀錄</p>
 		</div>
 		<div class="detail">
-			<div>商品</div>
 			<div>訂單編號</div>
-			<div>購物日期</div>
+			<div>下單時間</div>
 			<div>總價</div>
-			<div>付款方式</div>
-			<div>配送方式</div>
 			<div>訂單狀態</div>
-			<div>申請取消</div>
-			<div>通知</div>
+			<div>操作</div>
 		</div>
 		<br>
 
 			<c:forEach var="rowItem" items="${lists}">
 				<div class="item2">
-					<div>
-						<button type="button" class="btn btn-info btn-lg"
-							data-toggle="modal" data-target="#${rowItem.orderid}">商品明細</button>
-					</div>
 					<div class="item1">${rowItem.orderid}</div>
-					<%-- 				<div class="item1">${(rowItem.ordertime)}</div> --%>
 					<div class="item1">
 						<fmt:formatDate type="both" value="${rowItem.ordertime}" />
 					</div>
 					<div class="item1">${rowItem.totalprice}</div>
-					<div class="item1">${rowItem.payment}</div>
-					<div class="item1">${rowItem.delivery}</div>
-					<div class="item1">${rowItem.state}</div>
-
-					<c:choose>
-
-						<c:when test="${rowItem.state=='申請退貨中'}">
-
-
+					<div class="item1">
+						<c:choose>
+							<c:when test="${rowItem.state==0}">新訂單</c:when>
+							<c:when test="${rowItem.state==2}">已完成</c:when>
+							<c:when test="${rowItem.state==3}">已取消</c:when>
+							<c:otherwise>未知的狀態</c:otherwise>
+						</c:choose>
+					</div>
+					<div class="item1">
+						<c:if test="${rowItem.state==0}">
 							<div>
-								<button type="button" disabled="disabled"
-									class="btn btn-danger cancelbtn" name="cancel"
-									value="${rowItem.orderid}">退貨</button>
+								<button type="button" class="btn btn-danger cancelbtn" name="cancel"
+										value="${rowItem.orderid}">取消訂單</button>
+															
+								<button type="button" class="btn btn-success done" name="done"
+										value="${rowItem.orderid}">完成訂單</button>
 							</div>
+						</c:if>
+					</div>
 
-						</c:when>
-						<c:when test="${rowItem.state=='完成'}">
-							<div>
-								<button type="button" disabled="disabled"
-									class="btn btn-danger cancelbtn" name="cancel"
-									value="${rowItem.orderid}">退貨</button>
-							</div>
-						</c:when>
-
-
-						<c:otherwise>
-							<div>
-								<button type="button"
-									class="btn btn-danger cancelbtn" name="cancel"
-									value="${rowItem.orderid}">退貨</button>
-							</div>
-
-						</c:otherwise>
-
-					</c:choose>
-
-					<c:choose>
-
-						<c:when test="${rowItem.state=='申請退貨中'}">
-
-
-							<div>
-								<button type="button" disabled="disabled"
-									class="btn btn-danger done" name="done"
-									value="${rowItem.orderid}">已接收</button>
-							</div>
-
-						</c:when>
-						<c:when test="${rowItem.state=='完成'}">
-							<div>
-								<button type="button" disabled="disabled"
-									class="btn btn-danger done" name="done"
-									value="${rowItem.orderid}">已接收</button>
-							</div>
-						</c:when>
-						<c:otherwise>
-							<div>
-								<button type="button"
-									class="btn btn-danger done" name="done"
-									value="${rowItem.orderid}">已接收</button>
-							</div>
-
-						</c:otherwise>
-					</c:choose>
 				</div>
-
+				<hr>
 				<!-- Modal -->
 				<div class="modal fade" id="${rowItem.orderid}" role="dialog">
 					<div class="modal-dialog">
@@ -174,7 +124,7 @@
 
 		<button>下一頁</button>
 	</div>
-
+	</main>
 	<jsp:include page="../tag/footer.jsp" />
 </body>
 </html>

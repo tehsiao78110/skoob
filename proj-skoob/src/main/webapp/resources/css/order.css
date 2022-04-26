@@ -303,7 +303,7 @@ fieldset[disabled] .btn-info.focus {
     clear: both;
 }
 
-/*test*/
+/* 下面是自己定義的 css */
 .detail {
     display: flex;
     background-color: bisque;
@@ -329,6 +329,8 @@ fieldset[disabled] .btn-info.focus {
     height: 25px;
     font-size: 15px;
     padding: initial;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .page button {
@@ -360,4 +362,16 @@ p {
     font-size: 30px;
     font-weight: bold;
     border-bottom: 5px solid #a40000;
+}
+
+.order_state_operate{
+	display: flex;
+}
+
+.item1 > div{
+	padding-left:0px;
+}
+.order_main{
+	padding-left:24px;
+	padding-right:24px;
 }
