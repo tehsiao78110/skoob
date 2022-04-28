@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +26,7 @@ import model.service.MemberService;
 import model.service.OrderService;
 
 @Controller
-@RequestMapping("/pages/order.controllor")
+@RequestMapping("/pages/order")
 public class OrderController {
 	@Autowired
 	private OrderService orderService;
@@ -33,7 +34,7 @@ public class OrderController {
 	private MemberService memberService;
 
 	@GetMapping
-	public String get(Model model, HttpSession session) {
+	public String getList(Model model, HttpSession session) {
 		System.out.println("order get OK!!");
 		// 取得登入的資訊
 		MemberBean member = (MemberBean) session.getAttribute("user");
@@ -44,10 +45,22 @@ public class OrderController {
 		} else {
 			List<OrderBean> list = orderService.selectlist(member);
 			model.addAttribute("lists", list);
-			return "/pages/order";
+			return "/pages/order_list";
 		}
 	}
 
+	@GetMapping("/{orderid}")
+	public String get(@PathVariable("orderid") String orderid, HttpSession session) {
+		System.out.println("orderid = " + orderid);
+		// 取得登入的資訊
+		MemberBean member = (MemberBean) session.getAttribute("user");
+		// 驗證是否登入
+		if (member != null && member.getMemberid() != null && memberService.checkAccountExist(member.getMemberid())) {
+			
+		}
+		return "redirect:/pages/login";
+	}
+	
 	@PostMapping
 	public String post(String payment, String delivery, Model model, HttpSession session) {
 		System.out.println("payment = " + payment);
@@ -79,7 +92,7 @@ public class OrderController {
 			orderService.deleteCart(carts);
 			session.setAttribute("cartDto", null);
 
-			return "redirect:/pages/order.controllor";
+			return "redirect:/pages/order";
 		}
 		return "redirect:/pages/login";
 	}
