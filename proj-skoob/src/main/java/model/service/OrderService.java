@@ -27,7 +27,7 @@ public class OrderService {
 	@Autowired
 	private OrderDAO orderDAO;
 
-	public List<OrderBean> selectlist(MemberBean bean) {
+	public List<OrderBean> selectOrderList(MemberBean bean) {
 		if (bean != null) {
 			List<OrderBean> result = null;
 			MemberBean id = orderDAO.selectmemberid(1);
@@ -44,6 +44,26 @@ public class OrderService {
 		return null;
 	}
 
+	public OrderBean selectOrder(MemberBean memeber, String orderid) {
+		OrderBean order = null;
+		if (orderid != null && orderid.length() != 0) {
+			order = orderDAO.select(orderid);
+			// 比對訂單的編號，會員只能查詢「自己的訂單」
+			if (order.getMemberid() != memeber.getMemberid()) {
+				order = null;
+			}
+		}
+		return order;
+	}
+
+	public Set<OrderitemBean> getOrderItem(OrderBean order) {
+		Set<OrderitemBean> orderitem = null;
+		if (order != null) {
+			orderitem = order.getOrderitems();
+		}
+		return orderitem;
+	}
+
 	public OrderBean update(OrderBean bean) {
 		OrderBean result = null;
 		if (bean != null && bean.getOrderid() != null) {
@@ -53,23 +73,28 @@ public class OrderService {
 		return result;
 	}
 
+	// 建立訂單時，才去生成 sequence
 	public String insertOrder(OrderBean order) {
-		// 時間
+		// 設定「下訂時間」
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
 		order.setOrdertime(date);
 
-		// id
-		String dateFormat = OrderUtil.getDateFormat(date);
-		Integer srlnum = orderDAO.selectOrderSrlnum(dateFormat);
-		String id = OrderUtil.getOrderid(dateFormat, srlnum);
-		System.out.println("id = " + id);
-		order.setOrderid(id);
+		// sequence id = 下定時間(只含日期) + 流水號碼
+		// -------------------------------------------------
+		// 取得下定時間的日期
+		String orderdate = OrderUtil.getDateFormat(date);
+		// 產生流水號碼
+		Integer srlnum = orderDAO.selectSerialNumber(orderdate);
+		// 組合成 sequence
+		String sequence = OrderUtil.getOrderid(orderdate, srlnum);
+		System.out.println("id = " + sequence);
+		// 設定「訂單 id」
+		order.setOrderid(sequence);
 
 		// 進行 insert
 		Serializable isSuccess = orderDAO.insert(order);
 
-		return id;
+		return sequence;
 	}
 
 	public void insertOrderitem(String orderid, List<CartBean> carts) {

@@ -66,10 +66,12 @@
 									<a href="<c:url value="/pages/product.controller?prodid=${rowItem.product.productid}"/>">
 										<div
 											style="background-image: url(<c:url value="/resources/pic/${rowItem.product.productpic}.jpg"/>);"
-											class="cart_product_img"></div>
+											class="cart_product_img">
+										</div>
 									</a>
 									<div class="cart_product_title_wrap">
-										<a href="" class="cart_product_title">${ rowItem.product.productname }</a>
+										<a href="<c:url value="/pages/product.controller?prodid=${rowItem.product.productid}"/>"
+										   class="cart_product_title">${ rowItem.product.productname }</a>
 									</div>
 								</div>
 							</li>

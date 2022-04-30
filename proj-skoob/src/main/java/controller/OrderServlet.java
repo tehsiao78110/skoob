@@ -49,7 +49,7 @@ public class OrderServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		MemberBean member = (MemberBean) session.getAttribute("user");
 	
-		List<OrderBean> list = orderService.selectlist(member);
+		List<OrderBean> list = orderService.selectOrderList(member);
 		System.out.println(list);
 		for (OrderBean lists : list) {
 			Set<OrderitemBean> item = lists.getOrderitems();

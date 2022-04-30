@@ -88,6 +88,7 @@ public class CartService {
 		return false;
 	}
 
+	// 商品加入購物車
 	public boolean addCart(MemberBean member, Integer productid) {
 		ProductBean product = cartDAO.selectProduct(productid);
 		if (product != null) {
@@ -118,9 +119,9 @@ public class CartService {
 		boolean addSuccess = addCart(member, productid);
 		// 刪除掉我的最愛
 		boolean deleteSuccess = false;
+		
 		MyFavBean isExist = myfavDAO.select(member.getMemberid(), productid);
 		if (isExist != null) {
-			// 步驟完全成功才算成功
 			deleteSuccess = myfavDAO.delete(member.getMemberid(), productid);
 		}
 		// 兩個步驟都必須成功

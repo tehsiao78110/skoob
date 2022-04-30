@@ -16,6 +16,12 @@
   border-bottom: 5px solid #1b6180;;
 }
 
+.order_main{
+	margin-top: 25px;
+	padding-left: 24px;
+	padding-right: 24px;
+}
+
 /* -------------------------------------------------------- */
 /* 訂單的「商品內容」 */
 /* -------------------------------------------------------- */
@@ -95,7 +101,8 @@
 }
 
 .productList_title:hover {
-  color: rgba(0, 0, 0, 0.8);
+  color: #9e0a0a;
+  text-decoration:underline;
 }
 
 /* 結帳 */

@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import model.bean.CartBean;
 import model.bean.MemberBean;
 import model.bean.OrderBean;
+import model.bean.OrderitemBean;
 import model.dto.CartDTO;
 import model.service.MemberService;
 import model.service.OrderService;
@@ -43,7 +45,7 @@ public class OrderController {
 		if (member == null || member.getMemberid() == null || !memberService.checkAccountExist(member.getMemberid())) {
 			return "redirect:/pages/login";
 		} else {
-			List<OrderBean> list = orderService.selectlist(member);
+			List<OrderBean> list = orderService.selectOrderList(member);
 			model.addAttribute("lists", list);
 			return "/pages/order_list";
 		}
@@ -56,15 +58,27 @@ public class OrderController {
 		MemberBean member = (MemberBean) session.getAttribute("user");
 		// 驗證是否登入
 		if (member != null && member.getMemberid() != null && memberService.checkAccountExist(member.getMemberid())) {
-			
+			OrderBean order = orderService.selectOrder(member, orderid);
+			Set<OrderitemBean> orderitem = orderService.getOrderItem(order);
+			if (order != null && orderitem != null) {
+				session.setAttribute("order", order);
+				session.setAttribute("orderitem", orderitem);
+				return "/pages/order";
+			} else {
+				return "/index";
+			}
 		}
 		return "redirect:/pages/login";
 	}
-	
+
 	@PostMapping
-	public String post(String payment, String delivery, Model model, HttpSession session) {
+	public String post(String payment, String delivery, String name, String phone, String invoicetype, Model model,
+			HttpSession session) {
 		System.out.println("payment = " + payment);
 		System.out.println("delivery = " + delivery);
+		System.out.println("name = " + name);
+		System.out.println("phone = " + phone);
+		System.out.println("invoicetype = " + invoicetype);
 		// 取得登入的資訊
 		MemberBean member = (MemberBean) session.getAttribute("user");
 		// 取得購物車的商品資料
@@ -73,22 +87,22 @@ public class OrderController {
 		// 驗證是否登入
 		if (member != null && member.getMemberid() != null && memberService.checkAccountExist(member.getMemberid())) {
 			// 1. 建立訂單
-			// --------------------------------------------------------------------
 			OrderBean order = new OrderBean();
 			order.setMemberid(member.getMemberid());
 			order.setDelivery(delivery);
 			order.setPayment(payment);
+			order.setName(name);
+			order.setPhone(phone);
+			order.setInvoicetype(invoicetype);
 			order.setTotalprice(cartDto.getTotalCost());
 			order.setState((byte) 0);
-
 			String orderid = orderService.insertOrder(order);
+
 			// 2. 將購物車的資料放入訂單項目
-			// --------------------------------------------------------------------
 			List<CartBean> carts = orderService.selectAllCart(member.getMemberid());
 			orderService.insertOrderitem(orderid, carts);
 
 			// 3. 購物車清空
-			// --------------------------------------------------------------------
 			orderService.deleteCart(carts);
 			session.setAttribute("cartDto", null);
 

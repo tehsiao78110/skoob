@@ -29,6 +29,13 @@ public class OrderDAO {
 		return sessionFactory.getCurrentSession();
 	}
 
+	public OrderBean select(String orderid) {
+		if(orderid != null && orderid.length() != 0) {
+			return this.getSession().get(OrderBean.class, orderid);
+		}
+		return null;
+	}
+		
 	public OrderBean update(String id, Byte state) {
 		if (id != null) {
 			OrderBean bean = this.getSession().get(OrderBean.class, id);
@@ -44,8 +51,8 @@ public class OrderDAO {
 		return this.getSession().get(MemberBean.class, id);
 	}
 
-	public Integer selectOrderSrlnum(String dateFormat) {
-		return (Integer) this.getSession().createNativeQuery("SELECT _nextval ( ? )").setParameter(1, dateFormat)
+	public Integer selectSerialNumber(String ordertime) {
+		return (Integer) this.getSession().createNativeQuery("SELECT _nextval ( ? )").setParameter(1, ordertime)
 				.uniqueResult();
 	}
 

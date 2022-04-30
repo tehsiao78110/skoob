@@ -43,15 +43,16 @@ public class OrderBean {
 	private Integer memberid;
 	private String payment;
 	private String delivery;
+	private String invoicetype;
 	private Integer totalprice;
+	private String name;
+	private String phone;
 	private Byte state;
-	
 
 	@Override
 	public String toString() {
-		return "orderid=" + orderid + ", ordertime="
-				+ ordertime + ", memberid=" + memberid + ", payment=" + payment + ", delivery=" + delivery
-				+ ", totalprice=" + totalprice + ", state=" + state + "]";
+		return "orderid=" + orderid + ", ordertime=" + ordertime + ", memberid=" + memberid + ", payment=" + payment
+				+ ", delivery=" + delivery + ", totalprice=" + totalprice + ", state=" + state + "]";
 	}
 
 	public String getOrderid() {
@@ -63,7 +64,7 @@ public class OrderBean {
 	}
 
 	public java.util.Date getOrdertime() {
-		
+
 		return ordertime;
 	}
 
@@ -111,5 +112,28 @@ public class OrderBean {
 		this.state = state;
 	}
 
-	
+	public String getInvoicetype() {
+		return invoicetype;
+	}
+
+	public void setInvoicetype(String invoicetype) {
+		this.invoicetype = invoicetype;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 }
