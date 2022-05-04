@@ -1,7 +1,10 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,9 +39,12 @@ public class OrderController {
 	@Autowired
 	private MemberService memberService;
 
+	// 正規表達式
+	private final Pattern nameRegex = Pattern.compile("^[\\u4e00-\\u9fa5]+$|^[a-zA-Z\\s]+$");
+	private final Pattern phoneRegex = Pattern.compile("[0-9]{10}");
+
 	@GetMapping
 	public String getList(Model model, HttpSession session) {
-		System.out.println("order get OK!!");
 		// 取得登入的資訊
 		MemberBean member = (MemberBean) session.getAttribute("user");
 
@@ -72,13 +79,42 @@ public class OrderController {
 	}
 
 	@PostMapping
-	public String post(String payment, String delivery, String name, String phone, String invoicetype, Model model,
-			HttpSession session) {
-		System.out.println("payment = " + payment);
-		System.out.println("delivery = " + delivery);
-		System.out.println("name = " + name);
-		System.out.println("phone = " + phone);
-		System.out.println("invoicetype = " + invoicetype);
+	public String post(OrderBean order, Model model, HttpSession session, BindingResult bindingResult) {
+		System.out.println("payment = " + order.getPayment());
+		System.out.println("delivery = " + order.getDelivery());
+		System.out.println("name = " + order.getName());
+		System.out.println("phone = " + order.getPhone());
+		System.out.println("invoicetype = " + order.getInvoicetype());
+		System.out.println("totalprice = " + order.getTotalprice());
+		System.out.println("state = " + order.getState());
+		System.out.println("orderid = " + order.getOrderid());
+		System.out.println("memberid = " + order.getMemberid());
+		// 接收資料
+		// 轉換資料
+		Map<String, String> errors = new HashMap<String, String>();
+		model.addAttribute("errors", errors);
+
+		String name = order.getName();
+		String phone = order.getPhone();
+
+		// 檢查「姓名」
+		if (name == null || name.length() == 0) {
+			errors.put("name", "請輸入姓名");
+		} else if (!nameRegex.matcher(name).find()) {
+			errors.put("name", "姓名必須是中英文");
+		}
+
+		// 檢查「電話」
+		if (phone == null || phone.length() == 0) {
+			errors.put("phone", "請輸入電話");
+		} else if (!phoneRegex.matcher(phone).find()) {
+			errors.put("phone", "電話格式必須是數字");
+		}
+
+		if (errors != null && !errors.isEmpty()) {
+			return "/pages/checkout";
+		}
+
 		// 取得登入的資訊
 		MemberBean member = (MemberBean) session.getAttribute("user");
 		// 取得購物車的商品資料
@@ -86,25 +122,25 @@ public class OrderController {
 
 		// 驗證是否登入
 		if (member != null && member.getMemberid() != null && memberService.checkAccountExist(member.getMemberid())) {
-			// 1. 建立訂單
-			OrderBean order = new OrderBean();
-			order.setMemberid(member.getMemberid());
-			order.setDelivery(delivery);
-			order.setPayment(payment);
-			order.setName(name);
-			order.setPhone(phone);
-			order.setInvoicetype(invoicetype);
-			order.setTotalprice(cartDto.getTotalCost());
-			order.setState((byte) 0);
-			String orderid = orderService.insertOrder(order);
-
-			// 2. 將購物車的資料放入訂單項目
-			List<CartBean> carts = orderService.selectAllCart(member.getMemberid());
-			orderService.insertOrderitem(orderid, carts);
-
-			// 3. 購物車清空
-			orderService.deleteCart(carts);
-			session.setAttribute("cartDto", null);
+//			// 1. 建立訂單
+//			OrderBean order = new OrderBean();
+//			order.setMemberid(member.getMemberid());
+//			order.setDelivery(delivery);
+//			order.setPayment(payment);
+//			order.setName(name);
+//			order.setPhone(phone);
+//			order.setInvoicetype(invoicetype);
+//			order.setTotalprice(cartDto.getTotalCost());
+//			order.setState((byte) 0);
+//			String orderid = orderService.insertOrder(order);
+//
+//			// 2. 將購物車的資料放入訂單項目
+//			List<CartBean> carts = orderService.selectAllCart(member.getMemberid());
+//			orderService.insertOrderitem(orderid, carts);
+//
+//			// 3. 購物車清空
+//			orderService.deleteCart(carts);
+//			session.setAttribute("cartDto", null);
 
 			return "redirect:/pages/order";
 		}
@@ -147,7 +183,7 @@ public class OrderController {
 				} else {
 					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("未知的操作指令");
 				}
-				return ResponseEntity.status(HttpStatus.OK).body(null);
+				return ResponseEntity.status(HttpStatus.OK).body("訂單狀態更新成功");
 			} else {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("訂單出現異常的操作");
 			}

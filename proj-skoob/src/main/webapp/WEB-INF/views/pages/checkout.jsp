@@ -34,14 +34,18 @@
         <strong class="top">選擇配送方式</strong>
         <fieldset class="side border border-primary">
             <legend></legend><br>
-            <input name="delivery" id="seven" type="radio" value="7-11取貨" required><label for="seven">7-11取貨</label><br><br>
-            <input name="delivery" id="home" type="radio" value="宅配到府"><label for="home">宅配到府</label><br><br>
+            <input name="delivery" id="seven" type="radio" value="7-11取貨" required ${param.delivery=='7-11取貨'?'checked':''}>
+            	<label for="seven">7-11取貨</label><br><br>
+            <input name="delivery" id="home" type="radio" value="宅配到府" required ${param.delivery=='宅配到府'?'checked':''}>
+            	<label for="home">宅配到府</label><br><br>
         </fieldset><br>
         <strong class="top">選擇付款方式</strong>
         <fieldset class="side border border-primary">
             <legend></legend><br>
-            <input name="payment" id="credit" type="radio" value="信用卡線上刷卡" required><label for="credit">信用卡線上刷卡</label><br><br>
-            <input name="payment" id="icash" type="radio" value="icash付款"><label for="icash">icash付款</label><br><br>
+            <input name="payment" id="credit" type="radio" value="信用卡線上刷卡" required ${param.payment=='信用卡線上刷卡'?'checked':''}>
+            	<label for="credit">信用卡線上刷卡</label><br><br>
+            <input name="payment" id="icash" type="radio" value="icash付款" required ${param.payment=='icash付款'?'checked':''}>
+            <label for="icash">icash付款</label><br><br>
         </fieldset><br>
         <strong class="top">選擇優惠方式</strong>
         <fieldset class="side border border-primary">
@@ -65,17 +69,22 @@
             <legend></legend><br>
             <input name="thesame" id="same" type="checkbox"><label>同訂購人資訊</label><br><br>
             <label for="recipient">收件人:</label>
-            <input name="name" id="recipient" type="text" placeholder="例:王曉明" required><br><br>
+            <input name="name" id="recipient" type="text" placeholder="例:王曉明" value="${param.name}">
+            <span class="error">${errors.name}</span><br><br>
             <label for="mobilephone">行動電話:</label>
-            <input name="phone" id="mobilephone" type="text" required><br><br>
+            <input name="phone" id="mobilephone" type="text"  value="${param.phone}">
+            <span class="error">${errors.phone}</span><br><br>
         </fieldset><br>
         <strong class="top">發票資訊</strong>
-        <fieldset class="side border border-primary">
-            <legend></legend><br>
-            <input name="invoicetype" id="donate" type="radio" value="捐贈發票" required><label for="donate">捐贈發票</label><br><br>
-            <input name="invoicetype" id="twopart" type="radio" value="二聯電子發票"><label for="twopart">二聯電子發票</label><br><br>
-            <input name="invoicetype" id="threepart" type="radio" value="三聯電子發票"><label for="threepart">三聯電子發票</label><br><br>
-        </fieldset><br>
+	        <fieldset class="side border border-primary">
+	            <legend></legend><br>
+	            <input name="invoicetype" id="donate" type="radio" value="捐贈發票" required ${param.invoicetype=='捐贈發票'?'checked':''}>
+	            	<label for="donate">捐贈發票</label><br><br>
+	            <input name="invoicetype" id="twopart" type="radio" value="二聯電子發票" required ${param.invoicetype=='二聯電子發票'?'checked':''}>
+	            	<label for="twopart">二聯電子發票</label><br><br>
+	            <input name="invoicetype" id="threepart" type="radio" value="三聯電子發票" required ${param.invoicetype=='三聯電子發票'?'checked':''}>
+	            	<label for="threepart">三聯電子發票</label><br><br>
+	        </fieldset><br>
         <button style="background-color:rgb(230, 133, 226);color: white;" id="check" type="submit" value="checkout" name="orderaction">確認訂購</button>
     </form>
     <br><br>
