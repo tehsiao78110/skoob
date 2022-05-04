@@ -1,7 +1,5 @@
 package model.service;
 
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -17,6 +15,8 @@ import model.bean.CartBean;
 import model.bean.MemberBean;
 import model.bean.OrderBean;
 import model.bean.OrderitemBean;
+import model.dao.CartDAO;
+import model.dao.MemberDAO;
 import model.dao.OrderDAO;
 import util.OrderUtil;
 
@@ -26,11 +26,54 @@ public class OrderService {
 
 	@Autowired
 	private OrderDAO orderDAO;
+	@Autowired
+	private CartDAO cartDAO;
+	@Autowired
+	private MemberDAO memberDAO;
 
-	public List<OrderBean> selectOrderList(MemberBean bean) {
-		if (bean != null) {
+	public void CreateOrder(OrderBean order) {
+		// 1. 生成 sequence(orderid)
+
+		// 設定「下訂時間」
+		Date date = new Date();
+		order.setOrdertime(date);
+
+		// sequence(orderid) = 下定時間(只含日期) + 流水號碼
+		// -------------------------------------------------
+		// 取得下定時間的日期
+		String orderdate = OrderUtil.getDateFormat(date);
+		// 產生流水號碼
+		Integer srlnum = orderDAO.selectSerialNumber(orderdate);
+		// 組合成 sequence
+		String sequence = OrderUtil.getOrderid(orderdate, srlnum);
+
+		// 2. 建立訂單
+		order.setOrderid(sequence);
+		orderDAO.insertOrder(order);
+
+		// 3. 將購物車的資料放入訂單項目
+		Set<CartBean> carts = cartDAO.selectAll(order.getMemberid());
+		ArrayList<Integer> prodIdList = new ArrayList();
+		if (carts != null && !carts.isEmpty()) {
+			for (CartBean cart : carts) {
+				OrderitemBean orderitem = new OrderitemBean();
+				orderitem.setOrderid(sequence);
+				orderitem.setProductId(cart.getProductid());
+				orderitem.setNum(cart.getNumber());
+				orderitem.setPrice(cart.getSubtotal());
+				orderDAO.insertOrderitem(orderitem);
+				// 將 productid 加入集合 prodIdList
+				prodIdList.add(cart.getProductid());
+			}
+		}
+		// 4. 購物車清空
+		cartDAO.deleteMulti(order.getMemberid(), prodIdList);
+	}
+
+	public List<OrderBean> selectOrderList(MemberBean member) {
+		if (member != null) {
 			List<OrderBean> result = null;
-			MemberBean id = orderDAO.selectmemberid(1);
+			MemberBean id = memberDAO.selectMemberId(member.getMemberid());
 			Set<OrderBean> set = id.getOrderlists();
 			List<OrderBean> lists = new ArrayList<OrderBean>(set);
 			Collections.sort(lists, new Comparator<OrderBean>() {
@@ -44,7 +87,7 @@ public class OrderService {
 		return null;
 	}
 
-	public OrderBean selectOrder(MemberBean memeber, String orderid) {
+	public OrderBean getOrder(MemberBean memeber, String orderid) {
 		OrderBean order = null;
 		if (orderid != null && orderid.length() != 0) {
 			order = orderDAO.select(orderid);
@@ -73,67 +116,4 @@ public class OrderService {
 		return result;
 	}
 
-	// 建立訂單時，才去生成 sequence
-	public String insertOrder(OrderBean order) {
-		// 設定「下訂時間」
-		Date date = new Date();
-		order.setOrdertime(date);
-
-		// sequence id = 下定時間(只含日期) + 流水號碼
-		// -------------------------------------------------
-		// 取得下定時間的日期
-		String orderdate = OrderUtil.getDateFormat(date);
-		// 產生流水號碼
-		Integer srlnum = orderDAO.selectSerialNumber(orderdate);
-		// 組合成 sequence
-		String sequence = OrderUtil.getOrderid(orderdate, srlnum);
-		System.out.println("id = " + sequence);
-		// 設定「訂單 id」
-		order.setOrderid(sequence);
-
-		// 進行 insert
-		Serializable isSuccess = orderDAO.insert(order);
-
-		return sequence;
-	}
-
-	public void insertOrderitem(String orderid, List<CartBean> carts) {
-
-		if (orderid != null && carts != null && !carts.isEmpty()) {
-			for (CartBean cart : carts) {
-				OrderitemBean orderitem = new OrderitemBean();
-				orderitem.setOrderid(orderid);
-				orderitem.setProductId(cart.getProductid());
-				orderitem.setNum(cart.getNumber());
-				orderitem.setPrice(cart.getSubtotal());
-				orderDAO.insertOrderitem(orderitem);
-			}
-		}
-
-	}
-
-	public List<CartBean> selectAllCart(Integer memberid) {
-		List<CartBean> result = null;
-		if (memberid != null && memberid != 0) {
-			// 轉換 set 變成 List，並讓它有效排列
-			result = new ArrayList<CartBean>(orderDAO.selectAll(memberid));
-			Collections.sort(result, new Comparator<CartBean>() {
-				@Override
-				public int compare(CartBean c1, CartBean c2) {
-					return c1.getProductid().compareTo(c2.getProductid());
-				}
-			});
-		}
-		return result;
-	}
-
-	public boolean deleteCart(List<CartBean> carts) {
-		if (carts != null && !carts.isEmpty()) {
-			for (CartBean cart : carts) {
-				orderDAO.deleteCart(cart);
-			}
-			return true;
-		}
-		return false;
-	}
 }

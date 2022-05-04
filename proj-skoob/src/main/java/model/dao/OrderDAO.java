@@ -30,12 +30,20 @@ public class OrderDAO {
 	}
 
 	public OrderBean select(String orderid) {
-		if(orderid != null && orderid.length() != 0) {
+		if (orderid != null && orderid.length() != 0) {
 			return this.getSession().get(OrderBean.class, orderid);
 		}
 		return null;
 	}
-		
+
+	public void insertOrder(OrderBean order) {
+		this.getSession().save(order);
+	}
+
+	public void insertOrderitem(OrderitemBean orderitem) {
+		this.getSession().save(orderitem);
+	}
+	
 	public OrderBean update(String id, Byte state) {
 		if (id != null) {
 			OrderBean bean = this.getSession().get(OrderBean.class, id);
@@ -47,33 +55,10 @@ public class OrderDAO {
 		return null;
 	}
 
-	public MemberBean selectmemberid(Integer id) {
-		return this.getSession().get(MemberBean.class, id);
-	}
-
+	// 產生流水號
 	public Integer selectSerialNumber(String ordertime) {
 		return (Integer) this.getSession().createNativeQuery("SELECT _nextval ( ? )").setParameter(1, ordertime)
 				.uniqueResult();
 	}
 
-	public Serializable insert(OrderBean order) {
-		return this.getSession().save(order);
-	}
-
-	public Serializable insertOrderitem(OrderitemBean orderitem) {
-		return this.getSession().save(orderitem);
-	}
-	
-	public Set<CartBean> selectAll(Integer membeid) {
-		MemberBean isExist = this.getSession().get(MemberBean.class, membeid);
-		if (isExist != null) {
-			return isExist.getCarts();
-		}
-		return null;
-	}
-
-	public void deleteCart(CartBean cart) {
-		this.getSession().delete(cart);
-	}
-	
 }

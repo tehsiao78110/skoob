@@ -63,13 +63,12 @@ public class CartService {
 		return null;
 	}
 
-	public boolean deleteMulti(Integer memberid, List<Integer> checkid) {
-		boolean isSuccess = cartDAO.deleteAll(memberid, checkid);
+	public void deleteMulti(Integer memberid, List<Integer> checkid) {
+		boolean isSuccess = cartDAO.deleteMulti(memberid, checkid);
 		// 確認資料有沒有刪除成功
-		if (isSuccess) {
-			return true;
+		if (!isSuccess) {
+			throw new RuntimeException();
 		}
-		return false;
 	}
 
 	public boolean delete(Integer memberid, Integer productid) {
@@ -92,7 +91,7 @@ public class CartService {
 	public boolean addCart(MemberBean member, Integer productid) {
 		ProductBean product = cartDAO.selectProduct(productid);
 		if (product != null) {
-			// 確認資烙庫裡，Cart 是否已經存在了
+			// 確認資料庫裡，Cart 是否已經存在了
 			CartBean cart = cartDAO.select(member, product);
 			// 如果購物車裡，該商品已經存在，它的數量就加 1，價格也要更新
 			if (cart != null) {

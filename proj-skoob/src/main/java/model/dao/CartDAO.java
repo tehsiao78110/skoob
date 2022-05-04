@@ -46,19 +46,6 @@ public class CartDAO {
 		return null;
 	}
 
-	// 使用 HQL 語法
-	public List<CartBean> selectAllHql(Integer membeid) {
-		return this.getSession().createQuery("FROM CartBean WHERE memberId = :id", CartBean.class)
-				.setParameter("id", membeid).list();
-	}
-
-	// 使用 SQL 語法
-	public List<CartBean> selectAllSql(Integer membeid) {
-		return this.getSession()
-				.createNativeQuery("SELECT * FROM  cart WHERE memberid = ?", CartBean.class)
-				.setParameter(1, membeid).list();
-	}
-
 	public CartBean select(MemberBean member, ProductBean product) {
 		if (member != null && product != null) {
 			return this.getSession().get(CartBean.class, new CartId(member.getMemberid(), product.getProductid()));
@@ -67,15 +54,12 @@ public class CartDAO {
 		return null;
 	}
 
-	public boolean deleteAll(Integer membeid, List<Integer> checkid) {
+	public boolean deleteMulti(Integer membeid, List<Integer> checkid) {
 		if (membeid != null && checkid != null && !checkid.isEmpty()) {
-			String hql = "FROM CartBean WHERE memberid = :id AND productid IN (:list)";
-			List<CartBean> carts = this.getSession().createQuery(hql, CartBean.class).setParameter("list", checkid)
-					.setParameter("id", membeid).list();
-			if (carts != null && !carts.isEmpty()) {
-				for (CartBean cart : carts) {
-					this.getSession().delete(cart);
-				}
+			String hql = "DELETE FROM CartBean WHERE memberid = :id AND productid IN (:list)";
+			int success = this.getSession().createQuery(hql).setParameter("list", checkid).setParameter("id", membeid)
+					.executeUpdate();
+			if (success > 0) {
 				return true;
 			}
 		}
@@ -106,4 +90,16 @@ public class CartDAO {
 		return (CartBean) this.getSession().merge(cart);
 	}
 
+	// ===========================================================================================
+	// 沒有使用到的語法
+	// ===========================================================================================
+	public List<CartBean> selectAllHql(Integer membeid) {
+		return this.getSession().createQuery("FROM CartBean WHERE memberId = :id", CartBean.class)
+				.setParameter("id", membeid).list();
+	}
+
+	public List<CartBean> selectAllSql(Integer membeid) {
+		return this.getSession().createNativeQuery("SELECT * FROM  cart WHERE memberid = ?", CartBean.class)
+				.setParameter(1, membeid).list();
+	}
 }

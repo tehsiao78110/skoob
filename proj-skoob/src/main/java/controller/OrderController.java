@@ -65,7 +65,7 @@ public class OrderController {
 		MemberBean member = (MemberBean) session.getAttribute("user");
 		// 驗證是否登入
 		if (member != null && member.getMemberid() != null && memberService.checkAccountExist(member.getMemberid())) {
-			OrderBean order = orderService.selectOrder(member, orderid);
+			OrderBean order = orderService.getOrder(member, orderid);
 			Set<OrderitemBean> orderitem = orderService.getOrderItem(order);
 			if (order != null && orderitem != null) {
 				session.setAttribute("order", order);
@@ -80,15 +80,6 @@ public class OrderController {
 
 	@PostMapping
 	public String post(OrderBean order, Model model, HttpSession session, BindingResult bindingResult) {
-		System.out.println("payment = " + order.getPayment());
-		System.out.println("delivery = " + order.getDelivery());
-		System.out.println("name = " + order.getName());
-		System.out.println("phone = " + order.getPhone());
-		System.out.println("invoicetype = " + order.getInvoicetype());
-		System.out.println("totalprice = " + order.getTotalprice());
-		System.out.println("state = " + order.getState());
-		System.out.println("orderid = " + order.getOrderid());
-		System.out.println("memberid = " + order.getMemberid());
 		// 接收資料
 		// 轉換資料
 		Map<String, String> errors = new HashMap<String, String>();
@@ -108,7 +99,7 @@ public class OrderController {
 		if (phone == null || phone.length() == 0) {
 			errors.put("phone", "請輸入電話");
 		} else if (!phoneRegex.matcher(phone).find()) {
-			errors.put("phone", "電話格式必須是數字");
+			errors.put("phone", "電話格式必須是10個數字");
 		}
 
 		if (errors != null && !errors.isEmpty()) {
@@ -122,26 +113,18 @@ public class OrderController {
 
 		// 驗證是否登入
 		if (member != null && member.getMemberid() != null && memberService.checkAccountExist(member.getMemberid())) {
-//			// 1. 建立訂單
-//			OrderBean order = new OrderBean();
-//			order.setMemberid(member.getMemberid());
-//			order.setDelivery(delivery);
-//			order.setPayment(payment);
-//			order.setName(name);
-//			order.setPhone(phone);
-//			order.setInvoicetype(invoicetype);
-//			order.setTotalprice(cartDto.getTotalCost());
-//			order.setState((byte) 0);
-//			String orderid = orderService.insertOrder(order);
-//
-//			// 2. 將購物車的資料放入訂單項目
-//			List<CartBean> carts = orderService.selectAllCart(member.getMemberid());
-//			orderService.insertOrderitem(orderid, carts);
-//
-//			// 3. 購物車清空
-//			orderService.deleteCart(carts);
-//			session.setAttribute("cartDto", null);
+			try {
+				order.setMemberid(member.getMemberid());
+				order.setTotalprice(cartDto.getTotalCost());
+				order.setState((byte) 0);
+				orderService.CreateOrder(order);
+			} catch (Exception e) {
+				e.printStackTrace();
+				errors.put("fail", "發生錯誤，建立訂單失敗");
+				return "/pages/checkout";
+			}
 
+			session.setAttribute("cartDto", null);
 			return "redirect:/pages/order";
 		}
 		return "redirect:/pages/login";
