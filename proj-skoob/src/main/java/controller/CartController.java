@@ -75,10 +75,9 @@ public class CartController {
 			// 呼叫model
 			if (member != null && productid != null) {
 				cartService.addCart(member, productid);
-				List<CartBean> carts = cartService.selectAllHql(member.getMemberid());
-				System.out.println("carts = " + carts);
+				// 更新「購物車顯示資料」
+				List<CartBean> carts = cartService.selectAll(member.getMemberid());
 				CartDTO cartDTO = CartUtil.toCartDto(carts);
-				System.out.println("cartDTO = " + cartDTO);
 				session.setAttribute("cartDto", cartDTO);
 				return ResponseEntity.status(HttpStatus.OK).body(null);
 			} else {

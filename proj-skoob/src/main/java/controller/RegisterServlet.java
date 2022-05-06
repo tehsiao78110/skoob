@@ -21,7 +21,7 @@ import model.bean.MemberBean;
 import model.service.MemberService;
 
  
-@WebServlet(urlPatterns={"/pages/register.controller"})
+//@WebServlet(urlPatterns={"/pages/register.controller"})
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

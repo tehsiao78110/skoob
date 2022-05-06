@@ -2,7 +2,7 @@
 .Register{
 	background:#f1f1f1;
 	width: 800px;
-	height: 600px;
+	height: 500px;
 	margin-top:50px;
   margin-bottom: 50px;
 	padding: 40px 40px;
@@ -22,8 +22,7 @@
 }
 .error{
 	color: red;
-	position: relative;	
-	left: 10%;							
+	padding-left:5px;							
 }
 .Registerbtn{
 	justify-content: center;

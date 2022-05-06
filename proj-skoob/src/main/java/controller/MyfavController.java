@@ -92,7 +92,7 @@ public class MyfavController {
 				// 將收藏「加入購物車」並『刪除』
 				cartService.addMyfavToCart(member, productid);
 				// 更新購物車資料
-				List<CartBean> carts = cartService.selectAllHql(member.getMemberid());
+				List<CartBean> carts = cartService.selectAll(member.getMemberid());
 				CartDTO cartDTO = CartUtil.toCartDto(carts);
 				session.setAttribute("cartDto", cartDTO);
 				// 回應客戶端成功訊息

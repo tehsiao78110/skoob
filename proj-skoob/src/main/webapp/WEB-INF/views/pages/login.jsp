@@ -50,7 +50,7 @@
 		
 		<input type="submit" name="login" value="登入" class="logbtn">
 	<div class="txtbottom">
-		沒有帳號嗎? <a href="<c:url value="/pages/register.jsp" />">註冊</a>
+		沒有帳號嗎? <a href="<c:url value="/pages/user/register" />">註冊</a>
 	</div>	   
 	<script type="text/javascript">
 	checkacc();

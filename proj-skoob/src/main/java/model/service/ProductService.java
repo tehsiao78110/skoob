@@ -20,33 +20,9 @@ public class ProductService {
 	private ProductDAO productDAO;
 
 	public ProductBean select(Integer proid) {
-		ProductBean bean = productDAO.selectname(proid);
+		ProductBean bean = productDAO.select(proid);
 		if (bean != null) {
-			String productname = bean.getProductname();
-			String productpic = bean.getProductpic();
-			Integer author = bean.getAuthor();
-			String press = bean.getPress();
-			Integer price = bean.getPrice();
-			String introduction = bean.getIntroduction();
-			Date shelf = bean.getShelf();
-			String classification = bean.getClassification();
-			Integer buytime = bean.getBuytime();
-			Integer inventory = bean.getInventory();
 			return bean;
-		}
-		return null;
-	}
-
-	public List<ProductBean> selectallpro(String keyword) {
-		// proid = 2;
-		System.out.println("before----selectallpro");
-		List<ProductBean> bean = productDAO.selectpro(keyword);
-		System.out.println("after----selectallpro");
-		if (bean != null) {
-			System.out.println("List<ProductBean>: " + bean);
-			// if(account.equals(username)&&password.equals(userpassword)) {
-			return bean;
-			// }
 		}
 		return null;
 	}

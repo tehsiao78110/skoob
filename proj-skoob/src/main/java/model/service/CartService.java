@@ -19,6 +19,7 @@ import model.bean.MyFavBean;
 import model.bean.ProductBean;
 import model.dao.CartDAO;
 import model.dao.MyfavDAO;
+import model.dao.ProductDAO;
 import model.dto.CartDTO;
 import util.CartUtil;
 
@@ -29,6 +30,8 @@ public class CartService {
 	private CartDAO cartDAO;
 	@Autowired
 	private MyfavDAO myfavDAO;
+	@Autowired
+	private ProductDAO productDAO;
 
 	public List<CartBean> selectAll(Integer memberid) {
 		List<CartBean> result = null;
@@ -45,38 +48,20 @@ public class CartService {
 		return result;
 	}
 
-	public List<CartBean> selectAllHql(Integer memberid) {
-
-		if (memberid != null && memberid != 0) {
-			return cartDAO.selectAllHql(memberid);
-		}
-
-		return null;
-	}
-
-	public List<CartBean> selectAllSql(Integer memberid) {
-
-		if (memberid != null && memberid != 0) {
-			return cartDAO.selectAllSql(memberid);
-		}
-
-		return null;
-	}
-
-	public void deleteMulti(Integer memberid, List<Integer> checkid) {
-		boolean isSuccess = cartDAO.deleteMulti(memberid, checkid);
-		// 確認資料有沒有刪除成功
-		if (!isSuccess) {
-			throw new RuntimeException();
-		}
-	}
-
 	public boolean delete(Integer memberid, Integer productid) {
 		boolean isSuccess = cartDAO.delete(memberid, productid);
 		if (isSuccess) {
 			return true;
 		}
 		return false;
+	}
+	
+	public void deleteMulti(Integer memberid, List<Integer> checkid) {
+		boolean isSuccess = cartDAO.deleteMulti(memberid, checkid);
+		// 確認資料有沒有刪除成功
+		if (!isSuccess) {
+			throw new RuntimeException();
+		}
 	}
 
 	public boolean update(CartBean cart) {
@@ -89,7 +74,7 @@ public class CartService {
 
 	// 商品加入購物車
 	public boolean addCart(MemberBean member, Integer productid) {
-		ProductBean product = cartDAO.selectProduct(productid);
+		ProductBean product = productDAO.select(productid);
 		if (product != null) {
 			// 確認資料庫裡，Cart 是否已經存在了
 			CartBean cart = cartDAO.select(member, product);
@@ -112,20 +97,21 @@ public class CartService {
 	}
 
 	// 將『我的最愛』加到「購物車」
-	@Transactional(rollbackFor = Exception.class) 
+	@Transactional(rollbackFor = Exception.class)
 	public boolean addMyfavToCart(MemberBean member, Integer productid) {
 		// 加入購物車
 		boolean addSuccess = addCart(member, productid);
+		
 		// 刪除掉我的最愛
 		boolean deleteSuccess = false;
-		
 		MyFavBean isExist = myfavDAO.select(member.getMemberid(), productid);
 		if (isExist != null) {
 			deleteSuccess = myfavDAO.delete(member.getMemberid(), productid);
 		}
+		
 		// 兩個步驟都必須成功
 		if ((addSuccess && deleteSuccess) == false) {
-				throw new RuntimeException();
+			throw new RuntimeException();
 		} else {
 			return true;
 		}

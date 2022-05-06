@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -28,7 +28,7 @@
 	
 		<table>		
             <tr>
-                <td style="width: 100px;">帳號 :</td>
+                <td style="width: 180px;">帳號 :</td>
                 <td style="width: 300px;"><input size="30" type="text" name="account" value="${param.account}"></td>           
             
         		<td><span class="error">${errors.account}</span></td>
@@ -38,7 +38,7 @@
         
         <table>		
             <tr>
-                <td style="width: 100px;">密碼 :</td>
+                <td style="width: 180px;">密碼 :</td>
                 <td style="width: 300px;"><input id="pw" size="30" type="password" name="password" value="${param.password}">           
             
 	            <i id="eyeopen" class="fa fa-eye fa-lg" style="width:40px; position: relative; left: 0px; top:0px;display:none;"></i>
@@ -52,19 +52,19 @@
         
         <table>		
             <tr>
-                <td style="width: 100px;">確認密碼 :</td>
-                <td style="width: 300px;"><input id="pw2" size="30" type="password" name="confirmation" value="${param.confirmation}">
+                <td style="width: 180px;">確認密碼 :</td>
+                <td style="width: 300px;"><input id="pw2" size="30" type="password" name="password2" value="${param.password2}">
                 
                 <i id="eyeopen2" class="fa fa-eye fa-lg" style="width:40px; position: relative; left: 0px; top:0px;display:none;"></i>
 				<i id="eyeclose2" class="fa fa-eye-slash fa-lg" style="width:40px ;position: relative; left: 0px;top:0px;display:inline;"></i>          
            	    </td> 
            	    
-        		<td><span class="error">${errors.confirmation}</span></td>
+        		<td><span class="error">${errors.password2}</span></td>
        		</tr>
         </table>
         <hr>
         
-<%--         <table>		
+        <table>		
             <tr>
                 <td style="width: 180px;">姓名 :</td>
                 <td style="width: 300px;"><input size="30" type="text" name="name" value="${param.name}"></td>           
@@ -72,11 +72,11 @@
         		<td><span class="error">${errors.name}</span></td>
        		</tr>
         </table>
-        <hr> --%>
+        <hr>
         
         <table>		
             <tr>
-                <td style="width: 100px;">電子信箱 :</td>
+                <td style="width: 180px;">電子信箱 :</td>
                 <td style="width: 300px;"><input size="30" type="text" name="email" value="${param.email}"></td>           
             
         		<td><span class="error">${errors.email}</span></td>
@@ -84,7 +84,7 @@
         </table>
         <hr>
         
-<%--         <table>		
+        <table>		
             <tr>
                 <td style="width: 180px;">生日 :</td>
                 <td style="width: 300px;"><input size="25" type="date" name="birth" value="${birth}"></td>           
@@ -92,7 +92,7 @@
         		<td><span class="error">${errors.birth}</span></td>
        		</tr>
         </table>
-        <hr> --%>
+        <hr>
         <div class=" position-absolute start-50  top-100 translate-middle" style="width: 200px; top:90%;">
         <input  class="Registerbtn position-absolute start-50 translate-middle"  type="submit" name="register" value="註冊">
         </div>	
@@ -124,4 +124,4 @@
 <jsp:include page="../tag/footer.jsp" />
 
 </body>
-</html>
+</html> --%>

@@ -79,7 +79,7 @@ public class OrderController {
 	}
 
 	@PostMapping
-	public String post(OrderBean order, Model model, HttpSession session, BindingResult bindingResult) {
+	public String post(OrderBean order, Model model, HttpSession session) {
 		// 接收資料
 		// 轉換資料
 		Map<String, String> errors = new HashMap<String, String>();
