@@ -30,7 +30,7 @@
                     <ul class="dropdown-menu header_member_dropdown" aria-labelledby="dropdownMenuButton1">
                         <li><a class="dropdown-item" href="<c:url value="/pages/order"/>">訂單查詢</a></li>
                         <li><a class="dropdown-item" href="<c:url value="/pages/myFav.controller"/>">我的收藏</a></li>
-                        <li><a class="dropdown-item" href="#">修改會員資料</a></li>
+                        <li><a class="dropdown-item" href="<c:url value="/pages/user/edit"/>">修改會員資料</a></li>
                         <li><a class="dropdown-item" href="<c:url value="/pages/logout.controller"/>">登出</a></li>
                        
                     </ul>

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import model.bean.MemberBean;
 import model.service.MemberService;
@@ -26,12 +30,14 @@ public class MemberController {
 	// 正規表達式
 	private final Pattern accountRegex = Pattern.compile("[A-Za-z0-9]{6,}");
 	private final Pattern passwordRegex = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
+	private final Pattern phoneRegex = Pattern.compile("^09[0-9]{8}$");
+	private final Pattern telRegex = Pattern.compile("^0\\d{9}$");
 	private final Pattern emailRegex = Pattern
 			.compile("[a-z0-9A-Z_-]+([.][a-z0-9A-Z_-]+)*@[a-z0-9A-Z]+([.][a-z0-9A-Z_-]+)*$");
 
 	@InitBinder
 	public void initBinder(WebDataBinder webDataBinder) {
-		CustomDateEditor dateEditor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
+		CustomDateEditor dateEditor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), false);
 		webDataBinder.registerCustomEditor(java.util.Date.class, dateEditor);
 	}
 
@@ -40,10 +46,13 @@ public class MemberController {
 		return "/pages/register";
 	}
 
+	@GetMapping("/pages/user/edit")
+	public String getEdit() {
+		return "/pages/edit";
+	}
+
 	@PostMapping("/pages/user/register")
 	public String post(Model model, String confirmation, MemberBean member, BindingResult bindingResult) {
-		System.out.println("bindingResult = " + bindingResult);
-		System.out.println("member = " + member);
 		// 接收資料
 		// 轉換資料
 		Map<String, String> errors = new HashMap<String, String>();
@@ -84,6 +93,58 @@ public class MemberController {
 		} else {
 			errors.put("action", "註冊失敗");
 			return "/pages/register";
+		}
+
+	}
+
+	@PostMapping("/pages/user/edit")
+	public String put(MemberBean member, BindingResult bindingResult, Model model, HttpSession session) {
+		System.out.println("member = " + member);
+		// 取得登入的資訊
+		MemberBean user = (MemberBean) session.getAttribute("user");
+		System.out.println("user = " + user);
+		
+		Map<String, String> errors = new HashMap<String, String>();
+		model.addAttribute("errors", errors);
+
+		// 驗證是否登入
+		if (user != null && user.getMemberid() != null && memberService.checkAccountExist(user.getMemberid())) {
+			// 接收資料
+			// 轉換資料
+			if (bindingResult != null && bindingResult.hasFieldErrors()) {
+				if (bindingResult.hasFieldErrors("birth")) {
+					errors.put("birth", "生日必須是日期，並且符合YYYY-MM-DD格式");
+				}
+			}
+
+			// 檢查資料
+			if (!phoneRegex.matcher(member.getPhone()).find()) {
+				errors.put("phone", "手機格式必須是09開頭的10位數");
+			}
+
+			if (!telRegex.matcher(member.getTel()).find()) {
+				errors.put("tel", "市話格式必須是0開頭的10位數");
+			}
+			
+			if (errors != null && !errors.isEmpty()) {
+				System.out.println("errors = " + errors);
+				return "/pages/edit";
+			}
+			
+			// 呼叫Model
+			member.setMemberid(user.getMemberid());
+			MemberBean result = memberService.edit(member);
+			
+			// 根據Model執行結果導向View
+			if (result == null) {
+				errors.put("action", "Update fail");
+			} else {
+				model.addAttribute("user", result);
+			}
+			
+			return "/pages/edit";
+		} else {
+			return "redirect:/pages/login.controller";
 		}
 
 	}

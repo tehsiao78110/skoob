@@ -74,11 +74,21 @@ public class MemberService {
 	}
 
 	// 編輯會員資料
-	public MemberBean edit(MemberBean bean) {
-		MemberBean member = null;
-		if (bean != null && bean.getAccount() != null) {
-			member = memberDAO.update(bean);
+	public MemberBean edit(MemberBean member) {
+		MemberBean result = null;
+		System.out.println("edit = " + member);
+		if (member != null && member.getMemberid() != null) {
+			// 確認該筆資料存在
+			MemberBean isExist = memberDAO.selectMemberId(member.getMemberid());
+			System.out.println("isExist = " + isExist);
+			if(isExist != null) {
+				System.out.println("isExist OK!!");
+				member.setAccount(isExist.getAccount());
+				member.setPassword(isExist.getPassword());
+				member.setEmail(isExist.getEmail());
+				result = memberDAO.update(member);
+			}
 		}
-		return member;
+		return result;
 	}
 }
