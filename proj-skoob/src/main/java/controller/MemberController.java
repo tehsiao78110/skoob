@@ -47,8 +47,14 @@ public class MemberController {
 	}
 
 	@GetMapping("/pages/user/edit")
-	public String getEdit() {
-		return "/pages/edit";
+	public String getEdit(HttpSession session) {
+		// 取得登入的資訊
+		MemberBean user = (MemberBean) session.getAttribute("user");
+		// 驗證是否登入
+		if (user != null && user.getMemberid() != null && memberService.checkAccountExist(user.getMemberid())) {
+			return "/pages/edit";
+		}
+		return "/pages/login";
 	}
 
 	@PostMapping("/pages/user/register")
@@ -135,10 +141,14 @@ public class MemberController {
 			member.setMemberid(user.getMemberid());
 			MemberBean result = memberService.edit(member);
 			
+			Map<String, String> edit = new HashMap<String, String>();
+			model.addAttribute("edit", edit);
+			
 			// 根據Model執行結果導向View
 			if (result == null) {
-				errors.put("action", "Update fail");
+				edit.put("action", "發生錯誤，修改失敗!");
 			} else {
+				edit.put("action", "修改成功。");
 				model.addAttribute("user", result);
 			}
 			
