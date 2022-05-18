@@ -71,39 +71,8 @@
 </style>
 </head>
 <body>
+
 <jsp:include page="../tag/header.jsp" />
-<!-- <header> -->
-<!-- 	<div class="container row header_main"> -->
-<!-- 		<div class="col"> -->
-<%-- 			<a class="heander_index_title" href="<c:url value="/index.jsp"/>" > --%>
-<!-- 				<h1>Skoob</h1> -->
-<!-- 			</a> -->
-<!-- 		</div> -->
-<!-- 		<div class="col-8 header_form_wrap"> -->
-<%-- 			<form action="<c:url value="/index/search" />" class="header_form_content"> --%>
-<%-- 				<input type="text" name="keyword" id="" class="header_input_text" value="${param.keyword}" --%>
-<!-- 					placeholder="請輸入關鍵字"> -->
-<!-- 				<button type="submit" class="header_btn_search"> -->
-<!-- 					<div class="fa fa-search fa-lg"></div> -->
-<!-- 				</button> -->
-<!-- 			</form> -->
-<!-- 		</div> -->
-<!-- 		<div class="col header_operation_wrap"> -->
-<%-- 			<c:if test="${not empty user}"> --%>
-<!-- 				<div class="header_btn_member"> -->
-<!-- 					<i class="fa fa-user fa-lg header_btn_cart" aria-hidden="true"></i> -->
-<!-- 				</div> -->
-<%-- 			</c:if> --%>
-<%-- 			<c:if test="${empty user}"> --%>
-<!-- 				<button class="btn header_btn_login" onclick="location.href='/proj-skoob/member/login.jsp'">登入/註冊</button> -->
-<%-- 			</c:if>	 --%>
-<!-- 			<div class="header_btn_cart_wrap"> -->
-<!-- 				<i class="fa fa-shopping-cart fa-lg header_btn_cart" -->
-<!-- 					aria-hidden="true"></i> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
-<!-- </header> -->
 
 <div class=" container vw-100 justify-content-center" >
     <div class="mx-auto" style="margin: 40px 0;width: 1000px ;">
@@ -120,7 +89,7 @@
         
         <div class="row">
         	<div class="col-3 ">
-            	<a href="<c:url value="/product/product.controller?prodid=${product.productid}" />">
+            	<a href="<c:url value="/pages/product.controller?prodid=${product.productid}" />">
             		<img src="<c:url value="/resources/pic/${product.productpic}.jpg" />" style="width: 220px;">
             	</a>
             </div>

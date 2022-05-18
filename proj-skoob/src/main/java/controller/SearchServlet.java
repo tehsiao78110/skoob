@@ -16,7 +16,7 @@ import org.springframework.web.context.WebApplicationContext;
 import model.bean.ProductBean;
 import model.service.SearchService;
 
-@WebServlet(urlPatterns={"/index/search"})
+//@WebServlet(urlPatterns={"/index/search"})
 public class SearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private SearchService searchService;

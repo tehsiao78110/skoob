@@ -13,10 +13,12 @@ import model.dao.SearchDAO;
 @Transactional
 public class SearchService {
 	@Autowired
-	private  SearchDAO searchDAO;
-	
+	private SearchDAO searchDAO;
+
 	public List<ProductBean> search(String keyword) {
-		List<ProductBean> result = searchDAO.search(keyword);		
+//		List<ProductBean> result = searchDAO.search(keyword);
+		keyword = "%" + keyword + "%";
+		List<ProductBean> result = searchDAO.getQqueryResult(keyword);
 		return result;
-	}			
+	}
 }

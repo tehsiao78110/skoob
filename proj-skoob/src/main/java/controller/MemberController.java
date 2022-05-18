@@ -18,11 +18,13 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import model.bean.MemberBean;
 import model.service.MemberService;
 
 @Controller
+@RequestMapping("/pages/user")
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
@@ -41,12 +43,12 @@ public class MemberController {
 		webDataBinder.registerCustomEditor(java.util.Date.class, dateEditor);
 	}
 
-	@GetMapping("/pages/user/register")
+	@GetMapping("/register")
 	public String getRegister() {
 		return "/pages/register";
 	}
 
-	@GetMapping("/pages/user/edit")
+	@GetMapping("/edit")
 	public String getEdit(HttpSession session) {
 		// 取得登入的資訊
 		MemberBean user = (MemberBean) session.getAttribute("user");
@@ -57,7 +59,7 @@ public class MemberController {
 		return "/pages/login";
 	}
 
-	@PostMapping("/pages/user/register")
+	@PostMapping("/register")
 	public String post(Model model, String confirmation, MemberBean member, BindingResult bindingResult) {
 		// 接收資料
 		// 轉換資料
@@ -103,9 +105,8 @@ public class MemberController {
 
 	}
 
-	@PostMapping("/pages/user/edit")
+	@PostMapping("/edit")
 	public String put(MemberBean member, BindingResult bindingResult, Model model, HttpSession session) {
-		System.out.println("member = " + member);
 		// 取得登入的資訊
 		MemberBean user = (MemberBean) session.getAttribute("user");
 		System.out.println("user = " + user);

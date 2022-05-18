@@ -11,7 +11,7 @@
 			</a>
 		</div>
 		<div class="col-8 header_form_wrap">
-			<form action="<c:url value="/index/search" />" class="header_form_content">
+			<form action="<c:url value="/pages/search" />" class="header_form_content">
 				<input type="text" name="keyword" id="" class="header_input_text" value="${param.keyword}"
 					placeholder="請輸入關鍵字">
 				<button type="submit" class="header_btn_search">
