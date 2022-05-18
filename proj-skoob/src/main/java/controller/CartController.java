@@ -122,7 +122,7 @@ public class CartController {
 			// 根據 Model 執行結果導向 View
 			if (productid != null && number != null && subtotal != null) {
 				cartService.update(cart);
-				return ResponseEntity.status(HttpStatus.OK).body(null);
+				return ResponseEntity.status(HttpStatus.OK).body("購物車資料更新成功");
 			} else {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("購物車出現異常的操作");
 			}

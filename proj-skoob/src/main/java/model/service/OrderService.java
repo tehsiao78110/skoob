@@ -64,6 +64,7 @@ public class OrderService {
 				orderDAO.insertOrderitem(orderitem);
 				// 將 productid 加入集合 prodIdList
 				prodIdList.add(cart.getProductid());
+				// 更新商品的資料
 			}
 		}
 		// 4. 購物車清空

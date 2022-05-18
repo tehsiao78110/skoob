@@ -24,7 +24,6 @@ public class ProductDAO {
 			ProductBean product = this.getSession()
 					.createQuery("FROM ProductBean WHERE productid = :productId", ProductBean.class)
 					.setParameter("productId", productid).uniqueResult();
-			System.out.println("ProductBean : " + product);
 			return product;
 		} else {
 			return null;
@@ -42,4 +41,14 @@ public class ProductDAO {
 		return null;
 	}
 
+	public ProductBean update(ProductBean bean) {
+		if(bean != null && bean.getProductid() != null) {
+			ProductBean isExist = this.getSession().get(ProductBean.class, bean.getProductid());
+			if(isExist != null) {
+				return (ProductBean) this.getSession().merge(bean);
+			}
+		}
+		return null;
+	}
+	
 }
