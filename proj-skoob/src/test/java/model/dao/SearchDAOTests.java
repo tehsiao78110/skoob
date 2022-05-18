@@ -22,9 +22,11 @@ public class SearchDAOTests {
 	@Transactional
 	@Rollback(true)
 	public void testSelect() {
-		List<ProductBean> products = searchDAO.getQqueryResult("%海%");
+		List<ProductBean> products = searchDAO.getQqueryResult("海");
+		System.out.println("總筆數：" + products.size());
+		System.out.println("------------------------");
 		for (ProductBean product : products) {
-			System.out.println("name = " + product.getProductname());
+			System.out.println(product);
 		}
 	}
 

@@ -60,6 +60,8 @@ public class ProductBean {
 		this.carts = carts;
 	}
 
+	// -------------------------------------------------------------------
+
 	public Integer getProductid() {
 		return productid;
 	}
@@ -146,6 +148,13 @@ public class ProductBean {
 
 	public void setInventory(Integer inventory) {
 		Inventory = inventory;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductBean [productid=" + productid + ", productname=" + productname + ", productpic=" + productpic
+				+ ", press=" + press + ", price=" + price + ", shelf=" + shelf + ", Classification=" + Classification
+				+ ", buytime=" + buytime + ", Inventory=" + Inventory + "]";
 	}
 
 }
